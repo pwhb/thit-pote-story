@@ -1,13 +1,6 @@
-
-  
-
 # ကံ့ကော်မြို့တော် | သစ်ပုတ်ပုံပြင်
 
-  
-
 # kant kaw paradise | thit pote story
-
-  
 
 ## locations
 
@@ -46,98 +39,32 @@
 | your home                       | your home                       | သင့်အိမ်              |
 | student's home                  | student's home                  | ဂိုက်သင်တဲ့အိမ်       |
 
-
-
-
-  
-  
-
 ## associations
-
-  
-
-- painting course ပန်းချီသင်တန်း
-
-  
-
-- students' union ကျောင်းသားသမဂ္ဂ
-
-  
-
-- liberal class without classes စာသင်ခန်းပြင်ပစာသင်ခန်း
-
-  
-
-- yu debate league ဒီဘိတ်ကလပ်
-
-  
-
-- art & culture association အနုပညာအသင်း
-
-  
-
-- comedy community ဟာ‌သပြောသူများအသင်း
-
-  
+| name                          | en                            | my                      |
+| ----------------------------- | ----------------------------- | ----------------------- |
+| painting course               | painting course               | ပန်းချီသင်တန်း          |
+| students' union               | students' union               | ကျောင်းသားသမဂ္ဂ         |
+| liberal class without classes | liberal class without classes | စာသင်ခန်းပြင်ပစာသင်ခန်း |
+| yu debate league              | yu debate league              | ဒီဘိတ်ကလပ်              |
+| art & culture association     | art & culture association     | အနုပညာအသင်း             |
+| comedy community              | comedy community              | ဟာ‌သပြောသူများအသင်း     |
 
 ## people
-
-  
-
 - phone htet naung
-
-  
-
 - aung phone maw
-
-  
-
 - ye yint naing
 
-  
-
 ## majors
-
-  
-
 - maths
-
-  
-
 - physics
-
-  
-
 - psychology
-
-  
-
 - law
 
-  
-
 ## subjects
-
-  
-
 - english
-
-  
-
 - philosophy
-
-  
-
 - {{selected_major}}
 
-  
-
 ## issues
-
-  
-
 - oppression in hostels
-
-  
-
-- sexual harassments***
+- sexual harassments
