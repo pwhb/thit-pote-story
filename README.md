@@ -1,6 +1,6 @@
-# ကံ့ကော်မြို့တော် | သစ်ပုတ်ပုံပြင်
+# ကံ့ကော်မြို့တော် | kant kaw paradise
 
-# kant kaw paradise | thit pote story
+# သစ်ပုတ်ပုံပြင် | thit pote story
 
 ## locations
 
@@ -40,6 +40,7 @@
 | student's home                  | student's home                  | ဂိုက်သင်တဲ့အိမ်       |
 
 ## associations
+
 | name                          | en                            | my                      |
 | ----------------------------- | ----------------------------- | ----------------------- |
 | painting course               | painting course               | ပန်းချီသင်တန်း          |
@@ -50,21 +51,49 @@
 | comedy community              | comedy community              | ဟာ‌သပြောသူများအသင်း     |
 
 ## people
-- phone htet naung
-- aung phone maw
-- ye yint naing
+
+| name               | association     | major             |
+| ------------------ | --------------- | ----------------- |
+| phone htet naung   | students' union | political science |
+| aung phone maw     | liberal class   | maths             |
+| phone waiyam hein  | cc              | maths             |
+| hein htet aung     | yul             | law               |
+| ye yint naing      | painting        | history           |
+| lwin min oo        | students' union | biology           |
+| myat paing aye cho |                 | biology           |
+| engyin kay khaing  |                 | computer science  |
+| thuzar lwin        | a & c           | biology           |
 
 ## majors
-- maths
-- physics
-- psychology
-- law
+
+| name              |
+| ----------------- |
+| maths             |
+| biology           |
+| computer science  |
+| psychology        |
+| law               |
+| political science |
+| history           |
 
 ## subjects
-- english
-- philosophy
-- {{selected_major}}
 
-## issues
-- oppression in hostels
-- sexual harassments
+| name               |
+| ------------------ |
+| english            |
+| philosophy         |
+| {{selected_major}} |
+
+## problema
+
+| name                  |
+| --------------------- |
+| oppression in hostels |
+| sexual harassments    |
+| finding the imposter  |
+
+## events
+
+| name         |
+| ------------ |
+| science fair |
