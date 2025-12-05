@@ -1,6 +1,4 @@
-# ကံ့ကော်မြို့တော် | kant kaw paradise
-
-# သစ်ပုတ်ပုံပြင် | thit pote story
+# သစ်ပုတ်ပုံပြင် | thit pote remembers
 
 ## locations
 
