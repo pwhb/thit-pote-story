@@ -1,0 +1,34 @@
+# Locations
+
+- Convocation
+- Thit Pote
+- Chit Thu Alley
+- Recreation Center
+- Adipati Road
+- Judson Street
+- Sagaing Street
+- Dagon Street
+- Art Hall
+- Painting Hall
+- Student Affairs
+- Yangon University Library
+- Central Library
+- Art Canteen
+- Science Canteen
+- Eco Canteen
+- Judson Church
+- Ramanya Hall
+- Pinglong Hall
+- Innya Hall
+- Pinya Hall
+- Teachers' Association
+- Hledan Center
+- Gamone Pwint
+- Innya Lake
+- Eco Bar
+- Ko San Bar
+- University of Foreign
+- Universities Hospital
+- D Mate
+- Your Home
+- Student's Home

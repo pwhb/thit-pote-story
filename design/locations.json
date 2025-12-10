@@ -1,0 +1,240 @@
+[
+  {
+    "name": "Convocation Hall",
+    "i18n": {
+      "en": "Convocation Hall",
+      "my": "ဘွဲ့နှင်းသဘင်"
+    }
+  },
+  {
+    "name": "Thit Pote",
+    "i18n": {
+      "en": "Thit Pote",
+      "my": "သစ်ပုပ်"
+    }
+  },
+  {
+    "name": "Chit Thu Alley",
+    "i18n": {
+      "en": "Chit Thu Alley",
+      "my": "ချစ်သူလမ်းကြား"
+    }
+  },
+  {
+    "name": "Recreation Center",
+    "i18n": {
+      "en": "Recreation Center",
+      "my": "အာစီ"
+    }
+  },
+  {
+    "name": "Adipati Road",
+    "i18n": {
+      "en": "Adipati Road",
+      "my": "အဓိပတိလမ်း"
+    }
+  },
+  {
+    "name": "Judson Street",
+    "i18n": {
+      "en": "Judson Street",
+      "my": "ဂျပ်ဆင်လမ်း"
+    }
+  },
+  {
+    "name": "Sagaing Street",
+    "i18n": {
+      "en": "Sagaing Street",
+      "my": "စစ်ကိုင်းလမ်း"
+    }
+  },
+  {
+    "name": "Dagon Street",
+    "i18n": {
+      "en": "Dagon Street",
+      "my": "ဒဂုံလမ်း"
+    }
+  },
+  {
+    "name": "Arts Hall",
+    "i18n": {
+      "en": "Arts Hall",
+      "my": "ဝိဇ္ဇာခန်းမ"
+    }
+  },
+  {
+    "name": "Painting Hall",
+    "i18n": {
+      "en": "Painting Hall",
+      "my": "ပန်းချီခန်းမ"
+    }
+  },
+  {
+    "name": "Student Affairs",
+    "i18n": {
+      "en": "Student Affairs",
+      "my": "ကျောင်းသားရေးရာ"
+    }
+  },
+  {
+    "name": "Yangon University Library",
+    "i18n": {
+      "en": "Yangon University Library",
+      "my": "တက္ကသိုလ်စာကြည့်တိုက်"
+    }
+  },
+  {
+    "name": "Central Library",
+    "i18n": {
+      "en": "Central Library",
+      "my": "ဗဟိုစာကြည့်တိုက်"
+    }
+  },
+  {
+    "name": "Art Canteen",
+    "i18n": {
+      "en": "Art Canteen",
+      "my": "ဝိဇ္ဇာကန်တင်း"
+    }
+  },
+  {
+    "name": "Science Canteen",
+    "i18n": {
+      "en": "Science Canteen",
+      "my": "သိပ္ပံကန်တင်း"
+    }
+  },
+  {
+    "name": "Eco Canteen",
+    "i18n": {
+      "en": "Eco Canteen",
+      "my": "အီကိုကန်တင်း"
+    }
+  },
+  {
+    "name": "Judson Church",
+    "i18n": {
+      "en": "Judson Church",
+      "my": "ဂျပ်ဆင်ဘုရားကျောင်း"
+    }
+  },
+  {
+    "name": "Ramanya Hall",
+    "i18n": {
+      "en": "Ramanya Hall",
+      "my": "ရာမညဆောင်"
+    }
+  },
+  {
+    "name": "Panglone Hall",
+    "i18n": {
+      "en": "Panglone Hall",
+      "my": "ပင်လုံဆောင်"
+    }
+  },
+  {
+    "name": "Innya Hall",
+    "i18n": {
+      "en": "Innya Hall",
+      "my": "အင်းလျားဆောင်"
+    }
+  },
+  {
+    "name": "Thiri Hall",
+    "i18n": {
+      "en": "Thiri Hall",
+      "my": "သီရိဆောင်"
+    }
+  },
+  {
+    "name": "Pinya Hall",
+    "i18n": {
+      "en": "Pinya Hall",
+      "my": "ပင်းယဆောင်"
+    }
+  },
+  {
+    "name": "Bago Hall",
+    "i18n": {
+      "en": "Bago Hall",
+      "my": "ပဲခူးဆောင်"
+    }
+  },
+  {
+    "name": "Teachers' Association",
+    "i18n": {
+      "en": "Teachers' Association",
+      "my": "ဆရာများအသင်း"
+    }
+  },
+  {
+    "name": "Hledan Center",
+    "i18n": {
+      "en": "Hledan Center",
+      "my": "လှည်းတန်းစင်တာ"
+    }
+  },
+  {
+    "name": "Gamone Pwint",
+    "i18n": {
+      "en": "Gamone Pwint",
+      "my": "ဂမုန်းပွင့်"
+    }
+  },
+  {
+    "name": "Innya Lake",
+    "i18n": {
+      "en": "Innya Lake",
+      "my": "အင်းယားကန်ဘောင်"
+    }
+  },
+  {
+    "name": "Eco Bar",
+    "i18n": {
+      "en": "Eco Bar",
+      "my": "အီကိုဘား"
+    }
+  },
+  {
+    "name": "Ko San Bar",
+    "i18n": {
+      "en": "Ko San Bar",
+      "my": "ကိုစံဘား"
+    }
+  },
+  {
+    "name": "Yangon University of Foreign Languages",
+    "i18n": {
+      "en": "Yangon University of Foreign Languages",
+      "my": "ရန်ကုန်နိုင်ငံခြားဘာသာတက္ကသိုလ်"
+    }
+  },
+  {
+    "name": "Universities Hospital",
+    "i18n": {
+      "en": "Universities Hospital",
+      "my": "တက္ကသိုလ်များဆေးရုံ"
+    }
+  },
+  {
+    "name": "D Mate",
+    "i18n": {
+      "en": "D Mate",
+      "my": "ဒီမိတ်"
+    }
+  },
+  {
+    "name": "Your Home",
+    "i18n": {
+      "en": "Your Home",
+      "my": "သင့်အိမ်"
+    }
+  },
+  {
+    "name": "Student's Home",
+    "i18n": {
+      "en": "Student's Home",
+      "my": "ဂိုက်သင်တဲ့အိမ်"
+    }
+  }
+]
