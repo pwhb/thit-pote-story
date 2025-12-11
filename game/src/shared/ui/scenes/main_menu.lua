@@ -90,11 +90,9 @@ function scene.keypressed(key)
         if key == "return" or key == "space" then
             local choice = modes[mode_selected]
             if choice == "Visual Novel" then
-                print(choice)
-
+                scene_manager:switch_to("vn")
             elseif choice == "RPG" then
-                print(choice)
-
+                scene_manager:switch_to("rpg")
             end
         elseif key == "escape" then
             show_mode_modal = false

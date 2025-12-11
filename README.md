@@ -1,3 +1,9 @@
-# Thit Pote Remembers | သစ်ပုပ်ပုံပြင် 
+# Thit Pote Remembers | သစ်ပုပ်ပုံပြင်
 
 A social simulation RPG set on the campus of University of Yangon - an ode to the days we didn't know were numbered, sung in laughter and grief. Another chance to walk through the Gangaw Paradise.
+
+## Structure
+
+- `/design` - Game design docs
+- `/game` - LÖVE2D client (Lua)
+- `/server`- Go server (Postgres + Redis)

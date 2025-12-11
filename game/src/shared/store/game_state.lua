@@ -1,3 +1,4 @@
+local emotions = require("src.shared.store.emotions")
 local game_state = {}
 
 local init_state = {
@@ -5,7 +6,7 @@ local init_state = {
     period_name = "Morning",
     location = "Home",
     energy = 100,
-    current_dialogue = nil
+    emotion = emotions.new(0, 0)
 }
 
 function game_state:reset()
