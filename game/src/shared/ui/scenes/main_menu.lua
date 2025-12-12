@@ -2,62 +2,80 @@ local constants = require("src.shared.constants")
 local scene_manager = require("src.shared.ui.scene_manager")
 local scene = {}
 
-local selected = 1
 local options = {"Continue", "New Game", "Load", "Settings", "Exit"}
 
-local mode_selected = 1
 local modes = {"Visual Novel", "RPG"}
 
-local has_saved_game = false
-local show_mode_modal = false
+function scene:enter()
+    self.selected = 1
+    self.mode_selected = 1
+    self.has_saved_game = false
+    self.selected = self.has_saved_game and 1 or 2
+    self.show_mode_modal = false
 
-function scene.enter()
-    selected = has_saved_game and 1 or 2
-    show_mode_modal = false
+    self.song = love.audio.newSource("assets/audio/background/doh_tha_di_ya_nay_mal.ogg", "stream")
+    love.audio.play(self.song)
+    love.audio.setVolume(0.1)
+
+    self.background = love.graphics.newImage("assets/image/background/main_menu.jpg")
+    local img_w, img_h = self.background:getDimensions()
+    local screen_w, screen_h = love.graphics.getDimensions()
+
+    local scale_x = screen_w / img_w
+    local scale_y = screen_h / img_h
+    self.bg_scale = math.max(scale_x, scale_y)
+
+    self.bg_offset_x = (img_w * self.bg_scale - screen_w) / 2
+    self.bg_offset_y = (img_h * self.bg_scale - screen_h) / 2
+
 end
 
-function scene.exit()
-    show_mode_modal = false
+function scene:exit()
+    self.show_mode_modal = false
+    love.audio.stop()
 end
 
-function scene.update(dt)
-    if show_mode_modal then
+function scene:update(dt)
+    if self.show_mode_modal then
         if love.keyboard.isDown("left") or love.keyboard.isDown("a") then
-            mode_selected = math.max(1, mode_selected - 1)
+            self.mode_selected = math.max(1, self.mode_selected - 1)
             love.timer.sleep(0.2)
         elseif love.keyboard.isDown("right") or love.keyboard.isDown("d") then
-            mode_selected = math.min(#modes, mode_selected + 1)
+            self.mode_selected = math.min(#modes, self.mode_selected + 1)
             love.timer.sleep(0.2)
         end
     else
         if love.keyboard.isDown("up") or love.keyboard.isDown("w") then
-            selected = math.max(1, selected - 1)
+            self.selected = math.max(1, self.selected - 1)
             love.timer.sleep(0.2)
         elseif love.keyboard.isDown("down") or love.keyboard.isDown("s") then
-            selected = math.min(#options, selected + 1)
+            self.selected = math.min(#options, self.selected + 1)
             love.timer.sleep(0.2)
         end
     end
 end
 
-function scene.draw()
+function scene:draw()
     local width = love.graphics.getWidth()
     local height = love.graphics.getHeight()
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.draw(self.background, -self.bg_offset_x, -self.bg_offset_y, 0, self.bg_scale, self.bg_scale)
     local center_x = width / 2
 
     love.graphics.setColor(1, 1, 1)
+
     love.graphics.printf(constants.GAME_NAME, 0, 20, width, "center")
     local start_y = height / 2 - (#options * 15)
     for i, option in ipairs(options) do
-        local color = (i == selected) and {1, 0, 1} or {1, 1, 1}
-        if option == "Continue" and not has_saved_game then
+        local color = (i == self.selected) and {1, 0, 1} or {1, 1, 1}
+        if option == "Continue" and not self.has_saved_game then
             color = {0.5, 0.5, 0.5}
         end
         love.graphics.setColor(unpack(color))
         love.graphics.printf(option, 0, start_y + (i - 1) * 30, width, "center")
     end
 
-    if show_mode_modal then
+    if self.show_mode_modal then
         love.graphics.setColor(0, 0, 0, 0.7)
         love.graphics.rectangle("fill", 0, 0, width, height)
 
@@ -77,7 +95,7 @@ function scene.draw()
             local btn_x = modal_x + i * button_spacing
             local btn_y = modal_y + 70
 
-            love.graphics.setColor((i == mode_selected) and {1, 0, 1} or {1, 1, 1})
+            love.graphics.setColor((i == self.mode_selected) and {1, 0, 1} or {1, 1, 1})
 
             local text_w = love.graphics.getFont():getWidth(mode)
             love.graphics.print(mode, btn_x - text_w / 2, btn_y)
@@ -85,25 +103,25 @@ function scene.draw()
     end
 end
 
-function scene.keypressed(key)
-    if show_mode_modal then
+function scene:keypressed(key)
+    if self.show_mode_modal then
         if key == "return" or key == "space" then
-            local choice = modes[mode_selected]
+            local choice = modes[self.mode_selected]
             if choice == "Visual Novel" then
                 scene_manager:switch_to("vn")
             elseif choice == "RPG" then
                 scene_manager:switch_to("rpg")
             end
         elseif key == "escape" then
-            show_mode_modal = false
+            self.show_mode_modal = false
         end
     else
         if key == "return" or key == "space" then
-            local choice = options[selected]
-            if choice == "Continue" and has_saved_game then
-                show_mode_modal = true
+            local choice = options[self.selected]
+            if choice == "Continue" and self.has_saved_game then
+                self.show_mode_modal = true
             elseif choice == "New Game" then
-                show_mode_modal = true
+                self.show_mode_modal = true
             elseif choice == "Load" then
                 scene_manager:switch_to("load_menu")
             elseif choice == "Settings" then

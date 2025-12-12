@@ -1,5 +1,5 @@
 local scene_manager = require("src.shared.ui.scene_manager")
-local game_state = require("src.shared.game_state")
+local game_state = require("src.shared.store.game_state")
 
 scene_manager:register("main_menu", require("src.shared.ui.scenes.main_menu"))
 scene_manager:register("vn", require("src.vn.game"))
