@@ -1,6 +1,7 @@
 local constants = require("src.shared.constants")
 local scene_manager = require("src.shared.ui.scene_manager")
 local draw = require("src.shared.ui.utils.draw")
+local ux = require("src.shared.ui.utils.ux")
 local scene = {}
 
 local options = {"Continue", "New Game", "Load", "Settings", "Exit"}
@@ -41,13 +42,11 @@ function scene:exit()
 end
 
 function scene:change_option_ux()
-    love.audio.play(self.change_sound)
-    love.timer.sleep(0.2)
+    ux.action_ux(self.change_sound)
 end
 
 function scene:select_option_ux()
-    love.audio.play(self.select_sound)
-    love.timer.sleep(0.2)
+    ux.action_ux(self.select_sound)
 end
 
 function scene:update(dt)

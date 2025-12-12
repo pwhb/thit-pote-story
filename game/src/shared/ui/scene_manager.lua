@@ -4,8 +4,24 @@ local game_state = require("src.shared.store.game_state")
 local scene_manager = {
     current_scene_name = nil,
     current_scene = nil,
-    scenes = {}
+    scenes = {},
+    scene_stack = {}
 }
+
+function scene_manager:push(scene_name)
+    table.insert(self.scene_stack, self.current_scene_name)
+    self:switch_to(scene_name)
+end
+
+function scene_manager:pop()
+    if #self.scene_stack == 0 then
+        self:switch_to("main_menu")
+        return
+    end
+
+    local previous_scene = table.remove(self.scene_stack)
+    self:switch_to(previous_scene)
+end
 
 function scene_manager:switch_to(scene_name)
     if self.current_scene and self.current_scene.exit then

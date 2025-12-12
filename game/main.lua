@@ -5,6 +5,7 @@ scene_manager:register("main_menu", require("src.shared.ui.scenes.main_menu"))
 scene_manager:register("vn", require("src.vn.game"))
 scene_manager:register("rpg", require("src.rpg.game"))
 scene_manager:register("settings", require("src.shared.ui.scenes.settings"))
+scene_manager:register("pause_menu", require("src.shared.ui.scenes.pause_menu"))
 
 function love.load()
     game_state:reset()
