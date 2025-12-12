@@ -22,3 +22,7 @@ end
 function love.keypressed(key)
     scene_manager:keypressed(key)
 end
+
+function love.resize(w, h)
+    scene_manager:resize(w, h)
+end

@@ -2,6 +2,8 @@ local dialogue_box = require("src.shared.ui.components.dialogue_box")
 local hud = {}
 
 function hud.draw(game_state)
+    local font = love.graphics.newFont(12)
+    love.graphics.setFont(font)
     love.graphics.setColor(1, 1, 1)
     love.graphics.printf(string.format("Day %d • %s • %s", game_state.day, game_state.period_name,
         game_state.location), 10, 10, 200)

@@ -1,10 +1,11 @@
 local constants = require("src.shared.constants")
 local scene_manager = require("src.shared.ui.scene_manager")
+local draw = require("src.shared.ui.utils.draw")
 local scene = {}
 
 local options = {"Continue", "New Game", "Load", "Settings", "Exit"}
 
-local modes = {"Visual Novel", "RPG"}
+local modes = {"Visual Novel", "2D RPG"}
 
 function scene:enter()
     self.selected = 1
@@ -27,7 +28,8 @@ function scene:enter()
 
     self.bg_offset_x = (img_w * self.bg_scale - screen_w) / 2
     self.bg_offset_y = (img_h * self.bg_scale - screen_h) / 2
-
+    self.title_font = love.graphics.newFont(48)
+    self.menu_font = love.graphics.newFont(32)
 end
 
 function scene:exit()
@@ -62,24 +64,35 @@ function scene:draw()
     love.graphics.draw(self.background, -self.bg_offset_x, -self.bg_offset_y, 0, self.bg_scale, self.bg_scale)
     local center_x = width / 2
 
-    love.graphics.setColor(1, 1, 1)
-
-    love.graphics.printf(constants.GAME_NAME, 0, 20, width, "center")
+    draw.render_text(constants.GAME_NAME, width / 2, 30, {
+        font = self.title_font,
+        color = {1, 1, 1},
+        align = "center",
+        shadow_offset_x = 3,
+        shadow_offset_y = 3
+    })
     local start_y = height / 2 - (#options * 15)
+
     for i, option in ipairs(options) do
-        local color = (i == self.selected) and {1, 0, 1} or {1, 1, 1}
+        local color = (i == self.selected) and {1, 0, 0} or {1, 1, 1}
         if option == "Continue" and not self.has_saved_game then
             color = {0.5, 0.5, 0.5}
         end
-        love.graphics.setColor(unpack(color))
-        love.graphics.printf(option, 0, start_y + (i - 1) * 30, width, "center")
+
+        draw.render_text(option, width / 2, start_y + (i - 1) * 60, {
+            font = self.menu_font,
+            color = color,
+            align = "center",
+            shadow_offset_x = 3,
+            shadow_offset_y = 3
+        })
     end
 
     if self.show_mode_modal then
         love.graphics.setColor(0, 0, 0, 0.7)
         love.graphics.rectangle("fill", 0, 0, width, height)
 
-        local modal_w, modal_h = 300, 120
+        local modal_w, modal_h = 540, 180
         local modal_x = center_x - modal_w / 2
         local modal_y = height / 2 - modal_h / 2
 
@@ -88,14 +101,14 @@ function scene:draw()
         love.graphics.setColor(1, 1, 1)
         love.graphics.rectangle("line", modal_x, modal_y, modal_w, modal_h)
 
-        love.graphics.printf("Select Mode", modal_x, modal_y + 10, modal_w, "center")
+        love.graphics.printf("Select Mode", modal_x, modal_y + 30, modal_w, "center")
 
         local button_spacing = modal_w / (#modes + 1)
         for i, mode in ipairs(modes) do
             local btn_x = modal_x + i * button_spacing
-            local btn_y = modal_y + 70
+            local btn_y = modal_y + 90
 
-            love.graphics.setColor((i == self.mode_selected) and {1, 0, 1} or {1, 1, 1})
+            love.graphics.setColor((i == self.mode_selected) and {1, 0, 0} or {1, 1, 1})
 
             local text_w = love.graphics.getFont():getWidth(mode)
             love.graphics.print(mode, btn_x - text_w / 2, btn_y)
@@ -133,6 +146,21 @@ function scene:keypressed(key)
             love.event.quit()
         end
 
+    end
+end
+
+function scene:resize(w, h)
+    if self.background then
+        local img_w, img_h = self.background:getDimensions()
+        
+        -- Recompute scale to cover
+        local scale_x = w / img_w
+        local scale_y = h / img_h
+        self.bg_scale = math.max(scale_x, scale_y)
+        
+        -- Recompute center crop offset
+        self.bg_offset_x = (img_w * self.bg_scale - w) / 2
+        self.bg_offset_y = (img_h * self.bg_scale - h) / 2
     end
 end
 return scene

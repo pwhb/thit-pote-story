@@ -49,4 +49,10 @@ function scene_manager:keypressed(key)
     end
 end
 
+function scene_manager:resize(w, h)
+    if self.current_scene and self.current_scene.resize then
+        self.current_scene:resize(w, h)
+    end
+end
+
 return scene_manager
