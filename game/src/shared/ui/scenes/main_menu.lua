@@ -18,6 +18,9 @@ function scene:enter()
     love.audio.play(self.song)
     love.audio.setVolume(0.1)
 
+    self.select_sound = love.audio.newSource("assets/audio/bfxr/select.wav", "static")
+    self.change_sound = love.audio.newSource("assets/audio/bfxr/change_2.wav", "static")
+
     self.background = love.graphics.newImage("assets/image/background/main_menu.jpg")
     local img_w, img_h = self.background:getDimensions()
     local screen_w, screen_h = love.graphics.getDimensions()
@@ -37,22 +40,32 @@ function scene:exit()
     love.audio.stop()
 end
 
+function scene:change_option_ux()
+    love.audio.play(self.change_sound)
+    love.timer.sleep(0.2)
+end
+
+function scene:select_option_ux()
+    love.audio.play(self.select_sound)
+    love.timer.sleep(0.2)
+end
+
 function scene:update(dt)
     if self.show_mode_modal then
         if love.keyboard.isDown("left") or love.keyboard.isDown("a") then
             self.mode_selected = math.max(1, self.mode_selected - 1)
-            love.timer.sleep(0.2)
+            self:change_option_ux()
         elseif love.keyboard.isDown("right") or love.keyboard.isDown("d") then
             self.mode_selected = math.min(#modes, self.mode_selected + 1)
-            love.timer.sleep(0.2)
+            self:change_option_ux()
         end
     else
         if love.keyboard.isDown("up") or love.keyboard.isDown("w") then
             self.selected = math.max(1, self.selected - 1)
-            love.timer.sleep(0.2)
+            self:change_option_ux()
         elseif love.keyboard.isDown("down") or love.keyboard.isDown("s") then
             self.selected = math.min(#options, self.selected + 1)
-            love.timer.sleep(0.2)
+            self:change_option_ux()
         end
     end
 end
@@ -68,8 +81,8 @@ function scene:draw()
         font = self.title_font,
         color = {1, 1, 1},
         align = "center",
-        shadow_offset_x = 3,
-        shadow_offset_y = 3
+        shadow_offset_x = 5,
+        shadow_offset_y = 5
     })
     local start_y = height / 2 - (#options * 15)
 
@@ -89,7 +102,7 @@ function scene:draw()
     end
 
     if self.show_mode_modal then
-        love.graphics.setColor(0, 0, 0, 0.7)
+        love.graphics.setColor(0, 0, 0, 0.5)
         love.graphics.rectangle("fill", 0, 0, width, height)
 
         local modal_w, modal_h = 540, 180
@@ -103,15 +116,24 @@ function scene:draw()
 
         love.graphics.printf("Select Mode", modal_x, modal_y + 30, modal_w, "center")
 
-        local button_spacing = modal_w / (#modes + 1)
+        local button_width = 240 -- Fixed width for both buttons
+        local button_spacing = 20
+        local total_width = (#modes * button_width) + ((#modes - 1) * button_spacing)
+        local start_x = modal_x + (modal_w - total_width) / 2 -- Center the whole group
+
         for i, mode in ipairs(modes) do
-            local btn_x = modal_x + i * button_spacing
+            local btn_x = start_x + (i - 1) * (button_width + button_spacing)
             local btn_y = modal_y + 90
 
-            love.graphics.setColor((i == self.mode_selected) and {1, 0, 0} or {1, 1, 1})
+            -- Optional: Draw subtle background for selected
+            if i == self.mode_selected then
+                love.graphics.setColor(0.3, 0.3, 0.3, 0.6)
+                love.graphics.rectangle("fill", btn_x, btn_y - 2, button_width, 42, 16, 16, 4)
+            end
 
-            local text_w = love.graphics.getFont():getWidth(mode)
-            love.graphics.print(mode, btn_x - text_w / 2, btn_y)
+            -- Text (centered in button)
+            love.graphics.setColor((i == self.mode_selected) and {1, 0, 0} or {1, 1, 1})
+            love.graphics.printf(mode, btn_x, btn_y, button_width, "center")
         end
     end
 end
@@ -119,6 +141,7 @@ end
 function scene:keypressed(key)
     if self.show_mode_modal then
         if key == "return" or key == "space" then
+            self:select_option_ux()
             local choice = modes[self.mode_selected]
             if choice == "Visual Novel" then
                 scene_manager:switch_to("vn")
@@ -130,6 +153,7 @@ function scene:keypressed(key)
         end
     else
         if key == "return" or key == "space" then
+            self:select_option_ux()
             local choice = options[self.selected]
             if choice == "Continue" and self.has_saved_game then
                 self.show_mode_modal = true
@@ -152,12 +176,12 @@ end
 function scene:resize(w, h)
     if self.background then
         local img_w, img_h = self.background:getDimensions()
-        
+
         -- Recompute scale to cover
         local scale_x = w / img_w
         local scale_y = h / img_h
         self.bg_scale = math.max(scale_x, scale_y)
-        
+
         -- Recompute center crop offset
         self.bg_offset_x = (img_w * self.bg_scale - w) / 2
         self.bg_offset_y = (img_h * self.bg_scale - h) / 2
