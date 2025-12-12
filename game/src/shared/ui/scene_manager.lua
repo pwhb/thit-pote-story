@@ -1,11 +1,11 @@
 local hud = require("src.shared.ui.components.hud")
-local game_state = require("src.shared.store.game_state")
 
 local scene_manager = {
     current_scene_name = nil,
     current_scene = nil,
     scenes = {},
-    scene_stack = {}
+    scene_stack = {},
+    current_game_state = nil
 }
 
 function scene_manager:push(scene_name)
@@ -51,11 +51,21 @@ function scene_manager:update(dt)
 end
 
 function scene_manager:draw()
+    -- Draw the underlying scene (the one BELOW the pause menu)
+    if #self.scene_stack > 0 then
+        local previous_scene = self.scenes[self.scene_stack[#self.scene_stack]]
+        if previous_scene and previous_scene.draw then
+            previous_scene:draw()
+        end
+    end
+
+    -- Draw the current scene (pause menu) on top
     if self.current_scene and self.current_scene.draw then
         self.current_scene:draw()
     end
-    if not (self.current_scene_name == "main_menu") then
-        hud.draw(game_state:get())
+    if (self.current_scene_name ~= "main_menu" and self.current_scene_name ~= "pause_menu" and self.current_scene_name ~=
+        "load_menu") then
+        hud.draw(self.current_game_state)
     end
 end
 

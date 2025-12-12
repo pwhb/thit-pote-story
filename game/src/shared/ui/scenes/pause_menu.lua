@@ -8,19 +8,14 @@ local options = {"Resume", "Save", "Settings", "Main Menu", "Quit"}
 function scene:enter()
     self.selected = 1
     self.change_sound = love.audio.newSource("assets/audio/bfxr/change_2.wav", "static")
-    -- Fade out game audio, play pause ambience
 end
 
 function scene:draw()
     local w, h = love.graphics.getDimensions()
 
-    -- Semi-transparent overlay (so current scene is visible but dimmed)
     love.graphics.setColor(0, 0, 0, 0.6)
     love.graphics.rectangle("fill", 0, 0, w, h)
 
-    -- Title: "Step Back" (centered top)
-    love.graphics.setColor(1, 1, 1)
-    -- Options
     local start_y = h / 2 - (#options * 20)
     local font = love.graphics.newFont(24)
     love.graphics.setFont(font)
@@ -49,7 +44,7 @@ end
 
 function scene:keypressed(key)
     if key == "escape" or key == "p" then
-        scene_manager:pop() -- Custom method to return
+        scene_manager:pop()
     elseif key == "return" or key == "space" then
         local choice = options[self.selected]
         if choice == "Resume" then
@@ -58,9 +53,9 @@ function scene:keypressed(key)
             scene_manager:switch_to("main_menu")
         elseif choice == "Quit" then
             love.event.quit()
-            -- ... handle Save, Settings
+
         end
-        -- ... navigation
+
     end
 end
 
