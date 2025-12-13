@@ -1,7 +1,7 @@
 local emotion_states = require("data.static.emotion_states")
-local emotions = {}
+local emotion = {}
 
-function emotions:new(valence, arousal)
+function emotion:new(valence, arousal)
     local obj = {
         state = {
             Valence = valence,
@@ -12,7 +12,7 @@ function emotions:new(valence, arousal)
     self.__index = self
     return obj
 end
-function emotions:get()
+function emotion:get()
     local current = self.state
     local distances = {}
 
@@ -40,4 +40,4 @@ function emotions:get()
     end
 end
 
-return emotions
+return emotion

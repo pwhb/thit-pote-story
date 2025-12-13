@@ -15,9 +15,10 @@ function scene:enter()
     self.selected = self.has_saved_game and 1 or 2
     self.show_mode_modal = false
 
-    self.song = love.audio.newSource("assets/audio/background/doh_tha_di_ya_nay_mal.ogg", "stream")
-    love.audio.play(self.song)
-    love.audio.setVolume(0.1)
+    self.background_sound = love.audio.newSource("assets/audio/background/doh_tha_di_ya_nay_mal.ogg", "stream")
+    self.background_sound:setLooping(true)
+    self.background_sound:setVolume(0.1)
+    love.audio.play(self.background_sound)
 
     self.select_sound = love.audio.newSource("assets/audio/bfxr/select.wav", "static")
     self.change_sound = love.audio.newSource("assets/audio/bfxr/change_2.wav", "static")

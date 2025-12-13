@@ -1,4 +1,4 @@
-local emotions = require("src.shared.store.emotions")
+local emotion = require("src.shared.store.emotion")
 local clock = require("src.shared.store.clock")
 local game_state = {}
 
@@ -7,7 +7,7 @@ function game_state:new()
         day = 1,
         location = "Judson",
         clock = clock:new(),
-        emotions = emotions:new(0, 0),
+        emotion = emotion:new(0, 0),
         energy = 100
     }
     setmetatable(obj, self)

@@ -16,6 +16,10 @@ end
 
 function game:enter()
     self:load_assets()
+    self.background_sound = love.audio.newSource("assets/audio/background/forest_birdsong_loopable.ogg", "stream")
+    self.background_sound:setLooping(true)
+    self.background_sound:setVolume(0.01)
+    love.audio.play(self.background_sound)
     self.background = love.graphics.newImage(string.format("assets/image/background/%s.jpg", assets[2]))
 
     local img_w, img_h = self.background:getDimensions()
