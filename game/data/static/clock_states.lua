@@ -1,4 +1,4 @@
-local clock_states = {{
+return {{
     from = "5:00",
     to = "7:00",
     name = "Twilight"
@@ -21,7 +21,7 @@ local clock_states = {{
 }, {
     from = "15:00",
     to = "17:00",
-    name = "Early Evening"
+    name = "Late Afternoon"
 }, {
     from = "17:00",
     to = "19:00",
@@ -40,4 +40,3 @@ local clock_states = {{
     name = "Midnight"
 }}
 
-return clock_states

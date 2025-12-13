@@ -30,8 +30,7 @@ function game:enter()
     self.pause_sound = love.audio.newSource("assets/audio/bfxr/pause.wav", "static")
 
     -- state
-    game_state:reset()
-    scene_manager.current_game_state = game_state:get()
+    scene_manager.current_game_state = game_state:new()
 end
 
 function game:exit()

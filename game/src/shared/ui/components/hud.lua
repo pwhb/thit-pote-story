@@ -5,7 +5,7 @@ function hud.draw(game_state)
     local font = love.graphics.newFont(16)
     love.graphics.setFont(font)
     love.graphics.setColor(1, 1, 1)
-    love.graphics.printf(string.format("Day %d • %s • %s", game_state.day, game_state.period.name,
+    love.graphics.printf(string.format("Day %d • %s • %s", game_state.day, game_state.clock:get().name,
         game_state.location), 10, 10, 360)
     local bar_width = 200
     local fill = bar_width * (game_state.energy / 100)

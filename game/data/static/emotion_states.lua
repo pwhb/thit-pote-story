@@ -1,4 +1,4 @@
-local emotion_states = {
+return {
     -- Good Emotions
     Hopeful = {
         Valence = 60,
@@ -74,5 +74,3 @@ local emotion_states = {
         Arousal = 0
     }
 }
-
-return emotion_states
