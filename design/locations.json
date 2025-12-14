@@ -1,5 +1,9 @@
 [
   {
+    "name": "Main Gate",
+    "i18n": { "en": "Main Gate", "my": "မုဒ်ဥိး" }
+  },
+  {
     "name": "Convocation Hall",
     "i18n": {
       "en": "Convocation Hall",
@@ -168,60 +172,28 @@
     }
   },
   {
-    "name": "Hledan Center",
-    "i18n": {
-      "en": "Hledan Center",
-      "my": "လှည်းတန်းစင်တာ"
-    }
-  },
-  {
-    "name": "Gamone Pwint",
-    "i18n": {
-      "en": "Gamone Pwint",
-      "my": "ဂမုန်းပွင့်"
-    }
-  },
-  {
-    "name": "Innya Lake",
-    "i18n": {
-      "en": "Innya Lake",
-      "my": "အင်းယားကန်ဘောင်"
-    }
-  },
-  {
     "name": "Eco Bar",
     "i18n": {
       "en": "Eco Bar",
       "my": "အီကိုဘား"
-    }
+    },
+    "type": "bar"
   },
   {
     "name": "Ko San Bar",
     "i18n": {
       "en": "Ko San Bar",
       "my": "ကိုစံဘား"
-    }
-  },
-  {
-    "name": "Yangon University of Foreign Languages",
-    "i18n": {
-      "en": "Yangon University of Foreign Languages",
-      "my": "ရန်ကုန်နိုင်ငံခြားဘာသာတက္ကသိုလ်"
-    }
-  },
-  {
-    "name": "Universities Hospital",
-    "i18n": {
-      "en": "Universities Hospital",
-      "my": "တက္ကသိုလ်များဆေးရုံ"
-    }
+    },
+    "type": "bar"
   },
   {
     "name": "D Mate",
     "i18n": {
       "en": "D Mate",
       "my": "ဒီမိတ်"
-    }
+    },
+    "type": "shop"
   },
   {
     "name": "Your Home",

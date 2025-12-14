@@ -1,0 +1,47 @@
+{
+  "TWILIGHT": {
+    "name": { "en": "Twilight", "my": "Twilight" },
+    "period": "5:00 - 7:00"
+  },
+  "MORNING": {
+    "name": { "en": "Morning", "my": "Morning" },
+    "period": "7:00 - 9:00"
+  },
+  "LATE_MORNING": {
+    "name": { "en": "Late Morning", "my": "Late Morning" },
+    "period": "9:00 - 11:00"
+  },
+  "NOON": { "name": { "en": "Noon", "my": "Noon" }, "period": "11:00 - 13:00" },
+  "AFTERNOON": {
+    "name": { "en": "Afternoon", "my": "Afternoon" },
+    "period": "13:00 - 15:00"
+  },
+  "LATE_AFTERNOON": {
+    "name": { "en": "Late Afternoon", "my": "Late Afternoon" },
+    "period": "15:00 - 17:00"
+  },
+  "EVENING": {
+    "name": { "en": "Evening", "my": "Evening" },
+    "period": "17:00 - 19:00"
+  },
+  "LATE_EVENING": {
+    "name": { "en": "Late Evening", "my": "Late Evening" },
+    "period": "19:00 - 21:00"
+  },
+  "NIGHT": {
+    "name": { "en": "Night", "my": "Night" },
+    "period": "21:00 - 23:00"
+  },
+  "MIDNIGHT": {
+    "name": { "en": "Midnight", "my": "Midnight" },
+    "period": "23:00 - 1:00"
+  },
+  "DEEP_NIGHT": {
+    "name": { "en": "Deep Night", "my": "Deep Night" },
+    "period": "1:00 - 3:00"
+  },
+  "PRE_DAWN": {
+    "name": { "en": "Pre Dawn", "my": "Pre Dawn" },
+    "period": "3:00 - 5:00"
+  }
+}

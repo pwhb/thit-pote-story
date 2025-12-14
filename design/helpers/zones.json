@@ -1,0 +1,41 @@
+{
+  "UNIVERSITY_OF_YANGON": {
+    "name": { "en": "University of Yangon", "my": "ရန်ကုန်တက္ကသိုလ်" },
+    "type": "campus"
+  },
+  "HLEDAN_CENTER": {
+    "name": { "en": "Hledan Center", "my": "လှည်းတန်းစင်တာ" },
+    "type": "mall"
+  },
+  "GAMONE_PWINT": {
+    "name": { "en": "Gamone Pwint", "my": "ဂမုန်းပွင့်" },
+    "type": "mall"
+  },
+  "SEINN_LANN_SO_PYAY": {
+    "name": { "en": "Seinn lann So Pyay", "my": "စိမ်းလန်းစိုပြေ" },
+    "type": "scenery"
+  },
+  "INNYA_LAKE": {
+    "name": { "en": "Innya Lake", "my": "အင်းယားကန်ဘောင်" },
+    "type": "scenery"
+  },
+  "YANGON_UNIVERSITY_OF_FOREIGN_LANGUAGES": {
+    "name": {
+      "en": "Yangon University of Foreign Languages",
+      "my": "ရန်ကုန်နိုင်ငံခြားဘာသာတက္ကသိုလ်"
+    },
+    "type": "campus"
+  },
+  "UNIVERSITIES_HOSPITAL": {
+    "name": { "en": "Universities Hospital", "my": "တက္ကသိုလ်များဆေးရုံ" },
+    "type": "hospital"
+  },
+  "RESIDENTIAL_AREA": {
+    "name": { "en": "Residential Area", "my": "ရက်ကွက်" },
+    "type": "district"
+  },
+  "HLEDAN_AREA": {
+    "name": { "en": "Hledan Area", "my": "လှည်းတန်း" },
+    "type": "district"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "avatars": {
+    "CASSANDRA": "game/assets/image/avatar/cassandra.svg",
+    "PHONE_WAIYAM_HEIN": "game/assets/image/avatar/phone_waiyam_hein.svg"
+  },
+  "backgrounds": {
+    "MAIN_MENU": "game/assets/image/background/main_menu.jpg",
+    "MAIN_MENU_1": "game/assets/image/background/main_menu_1.jpg",
+    "MOON_LIT_JUDSON": "game/assets/image/background/moon_lit_judson.jpg",
+    "RED_CONVOCATION": "game/assets/image/background/red_convocation.jpg"
+  }
+}
