@@ -7,13 +7,13 @@ local game = {
     ---@type love.Image
     current_background = nil,
     current_background_sound = nil,
-    images = {},
+    backgrounds = {},
     sounds = {}
 }
 
 function game:load_assets()
-    for key, value in pairs(assets.images) do
-        self.images[key] = love.graphics.newImage(value)
+    for key, value in pairs(assets.backgrounds) do
+        self.backgrounds[key] = love.graphics.newImage(value)
     end
 
     for key, value in pairs(assets.sounds) do
@@ -29,7 +29,7 @@ end
 
 function game:enter()
     self:load_assets()
-    self.current_background = self.images["MOON_LIT_JUDSON"]
+    self.current_background = self.backgrounds["MOON_LIT_JUDSON"]
     self.current_background_sound = self.sounds["FOREST_BIRDSONG_LOOPABLE"]
     love.audio.play(self.current_background_sound)
 
