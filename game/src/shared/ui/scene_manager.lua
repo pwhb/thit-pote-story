@@ -5,7 +5,8 @@ local scene_manager = {
     current_scene = nil,
     scenes = {},
     scene_stack = {},
-    current_game_state = nil
+    current_game_state = nil,
+    current_settings = nil
 }
 
 function scene_manager:push(scene_name)
@@ -65,7 +66,7 @@ function scene_manager:draw()
     end
     if (self.current_scene_name ~= "main_menu" and self.current_scene_name ~= "pause_menu" and self.current_scene_name ~=
         "load_menu") then
-        hud.draw(self.current_game_state)
+        hud.draw(self.current_game_state, self.current_settings)
     end
 end
 

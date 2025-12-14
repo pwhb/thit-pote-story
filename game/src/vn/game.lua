@@ -1,28 +1,39 @@
 local scene_manager = require("src.shared.ui.scene_manager")
 local game_state = require("src.shared.store.game_state")
+local settings = require("src.shared.store.settings")
 local ux = require("src.shared.ui.utils.ux")
+local assets = require("data.static.assets.init")
 local game = {
-    background = nil,
-    background_images = {}
+    ---@type love.Image
+    current_background = nil,
+    current_background_sound = nil,
+    images = {},
+    sounds = {}
 }
 
-local assets = {"red_convocation", "moon_lit_judson"}
-
 function game:load_assets()
-    for i, asset in ipairs(assets) do
-        self.background_images[asset] = love.graphics.newImage(string.format("assets/image/background/%s.jpg", asset))
+    for key, value in pairs(assets.images) do
+        self.images[key] = love.graphics.newImage(value)
+    end
+
+    for key, value in pairs(assets.sounds) do
+        self.sounds[key] = love.audio.newSource(value.path, "stream")
+        if value.loop then
+            self.sounds[key]:setLooping(true)
+        end
+        if value.volume then
+            self.sounds[key]:setVolume(value.volume)
+        end
     end
 end
 
 function game:enter()
     self:load_assets()
-    self.background_sound = love.audio.newSource("assets/audio/background/forest_birdsong_loopable.ogg", "stream")
-    self.background_sound:setLooping(true)
-    self.background_sound:setVolume(0.01)
-    love.audio.play(self.background_sound)
-    self.background = love.graphics.newImage(string.format("assets/image/background/%s.jpg", assets[2]))
+    self.current_background = self.images["MOON_LIT_JUDSON"]
+    self.current_background_sound = self.sounds["FOREST_BIRDSONG_LOOPABLE"]
+    love.audio.play(self.current_background_sound)
 
-    local img_w, img_h = self.background:getDimensions()
+    local img_w, img_h = self.current_background:getDimensions()
     local screen_w, screen_h = love.graphics.getDimensions()
     local scale_x = screen_w / img_w
     local scale_y = screen_h / img_h
@@ -35,6 +46,7 @@ function game:enter()
 
     -- state
     scene_manager.current_game_state = game_state:new()
+    scene_manager.current_settings = settings:new()
 end
 
 function game:exit()
@@ -47,7 +59,7 @@ end
 
 function game:draw()
     love.graphics.setColor(1, 1, 1)
-    love.graphics.draw(self.background, -self.bg_offset_x, -self.bg_offset_y, 0, self.bg_scale, self.bg_scale)
+    love.graphics.draw(self.current_background, -self.bg_offset_x, -self.bg_offset_y, 0, self.bg_scale, self.bg_scale)
 end
 
 function game:keypressed(key)
@@ -58,8 +70,8 @@ function game:keypressed(key)
 end
 
 function game:resize(w, h)
-    if self.background then
-        local img_w, img_h = self.background:getDimensions()
+    if self.current_background then
+        local img_w, img_h = self.current_background:getDimensions()
 
         local scale_x = w / img_w
         local scale_y = h / img_h

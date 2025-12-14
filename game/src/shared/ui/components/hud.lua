@@ -1,12 +1,12 @@
 local dialogue_box = require("src.shared.ui.components.dialogue_box")
 local hud = {}
 
-function hud.draw(game_state)
+function hud.draw(game_state, settings)
     local w, h = love.graphics.getDimensions()
     local font = love.graphics.newFont(16)
 
     local day = string.format("Day %d", game_state.day)
-    local period = game_state.clock:get().name
+    local period = game_state.clock:get().name[settings.lang]
     local location = game_state.location
     local emotion = love.graphics.newText(font, game_state.emotion:get())
 

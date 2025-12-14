@@ -1,4 +1,4 @@
-local clock_states = require("data.static.clock_states")
+local time_periods = require("data.static.time_periods")
 local clock = {
     twilight_index = 1,
     default = 2,
@@ -21,7 +21,7 @@ function clock:get()
         time_of_day = "day"
     end
     return {
-        name = clock_states[self.current_period].name,
+        name = time_periods[self.current_period].name,
         time_of_day = time_of_day
     }
 end
@@ -29,7 +29,7 @@ end
 function clock:advance(is_twilight)
     is_twilight = is_twilight or false
     self.current_period = self.current_period + 1
-    if self.current_period > #clock_states then
+    if self.current_period > #time_periods then
         self.current_period = is_twilight and self.twilight_index or self.default
     end
 end

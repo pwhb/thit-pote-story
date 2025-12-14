@@ -6,7 +6,7 @@ function game_state:new()
     local obj = {
         day = 1,
         location = "Judson",
-        clock = clock:new(),
+        clock = clock:new(1),
         emotion = emotion:new(0, 0),
         energy = 100
     }
