@@ -1,6 +1,6 @@
 local scripts = require("data.static.scripts.init")
 local dialogue_engine = {
-    current_dialogue = nil,
+    current_index = nil,
     current_script = nil
 }
 
@@ -16,6 +16,8 @@ end
 
 function dialogue_engine:load_script(code)
     self.current_script = scripts[code]
+    self.current_index = 1
+    return self.current_script
 end
 
 function dialogue_engine:set(dialogue)
@@ -23,7 +25,12 @@ function dialogue_engine:set(dialogue)
 end
 
 function dialogue_engine:get()
-    return self.current_dialogue
+    return self.current_script and self.current_script["nodes"][self.current_index] or ""
+end
+
+function dialogue_engine:next()
+    local next_node = self.current_script["nodes"][self.current_index]["next_node"]
+    self.current_index = next_node and next_node or self.current_index + 1
 end
 
 function dialogue_engine:clear()

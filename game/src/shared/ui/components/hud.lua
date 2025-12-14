@@ -25,8 +25,8 @@ function hud.draw(game_state, settings)
     love.graphics.setColor(0.8, 0.2, 0.2)
     love.graphics.rectangle("fill", w - bar_width - 10, 30, fill, 10)
 
-    if game_state.current_dialogue then
-        dialogue_box.draw(game_state.current_dialogue)
+    if game_state.dialogue_engine then
+        dialogue_box.draw(game_state.dialogue_engine:get())
     end
 end
 
