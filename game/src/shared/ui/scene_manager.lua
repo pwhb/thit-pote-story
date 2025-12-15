@@ -1,6 +1,8 @@
 local hud = require("src.shared.ui.components.hud")
-
+local game_state = require("src.shared.store.game_state")
+local settings = require("src.shared.store.settings")
 local scene_manager = {
+    is_loading = false,
     current_scene_name = nil,
     current_scene = nil,
     scenes = {},
@@ -25,6 +27,7 @@ function scene_manager:pop()
 end
 
 function scene_manager:switch_to(scene_name)
+    self.is_loading = true
     if self.current_scene and self.current_scene.exit then
         self.current_scene:exit()
     end
@@ -37,8 +40,13 @@ function scene_manager:switch_to(scene_name)
     self.current_scene = new_scene
     self.current_scene_name = scene_name
     if self.current_scene and self.current_scene.enter then
+        if scene_name == "vn" or scene_name == "rpg" then
+            self.current_game_state = game_state:new()
+            self.current_settings = settings:new()
+        end
         self.current_scene:enter()
     end
+    self.is_loading = false
 end
 
 function scene_manager:register(name, scene_module)

@@ -1,6 +1,5 @@
 local scene_manager = require("src.shared.ui.scene_manager")
-local game_state = require("src.shared.store.game_state")
-local settings = require("src.shared.store.settings")
+
 local ux = require("src.shared.ui.utils.ux")
 local assets = require("data.static.assets.init")
 local game = {
@@ -28,10 +27,6 @@ function game:enter()
     self:load_assets()
     -- audio
     self.pause_sound = love.audio.newSource("assets/audio/bfxr/pause.wav", "static")
-
-    -- state
-    scene_manager.current_game_state = game_state:new()
-    scene_manager.current_settings = settings:new()
 
     -- game
     local script = scene_manager.current_game_state.dialogue_engine:load_script("000000")
@@ -64,7 +59,7 @@ function game:exit()
 end
 
 function game:update(dt)
-
+    scene_manager.current_game_state.dialogue_engine:update(0.03)
 end
 
 function game:draw()
@@ -78,8 +73,19 @@ function game:keypressed(key)
         scene_manager:push("pause_menu")
     end
 
-    if key == "return" or key == "space" then
-        scene_manager.current_game_state.dialogue_engine:next()
+    if scene_manager.current_game_state and scene_manager.current_game_state.dialogue_engine then
+        if key == "return" or key == "space" then
+            if scene_manager.current_game_state.dialogue_engine.current_dialogue and
+                scene_manager.current_game_state.dialogue_engine.current_dialogue.text and
+                scene_manager.current_game_state.dialogue_engine.current_dialogue.displayed_chars <
+                #scene_manager.current_game_state.dialogue_engine.current_dialogue.text then
+                -- Skip to full text
+                scene_manager.current_game_state.dialogue_engine.current_dialogue.displayed_chars =
+                    #scene_manager.current_game_state.dialogue_engine.current_dialogue.text
+            else
+                scene_manager.current_game_state.dialogue_engine:next()
+            end
+        end
     end
 end
 
