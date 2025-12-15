@@ -1,7 +1,7 @@
 local constants = require("src.shared.constants")
 local scene_manager = require("src.shared.ui.scene_manager")
-local draw = require("src.shared.ui.utils.draw")
-local ux = require("src.shared.ui.utils.ux")
+local draw = require("src.shared.utils.draw")
+local ux = require("src.shared.utils.ux")
 local scene = {}
 
 local options = {"Continue", "New Game", "Load", "Settings", "Exit"}

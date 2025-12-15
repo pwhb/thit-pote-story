@@ -2,7 +2,7 @@ local EventBus = {}
 
 local listeners = {}
 
-function EventBus:on(eventName, func, context)
+function EventBus.on(eventName, func, context)
     if not listeners[eventName] then
         listeners[eventName] = {}
     end
@@ -13,11 +13,11 @@ function EventBus:on(eventName, func, context)
     })
 end
 
-function EventBus:off(eventName)
+function EventBus.off(eventName)
 
 end
 
-function EventBus:emit(eventName, ...)
+function EventBus.emit(eventName, ...)
     local event_listeners = listeners[eventName]
     if not event_listeners then
         return

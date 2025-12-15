@@ -1,6 +1,4 @@
 local HUD = require("src.shared.ui.components.hud")
-local GameState = require("src.shared.store.game_state")
-local Settings = require("src.shared.store.settings")
 local EventBus = require("src.shared.event_bus")
 local DialogueEngine = require("src.shared.store.dialogue_engine")
 local SceneManager = {
@@ -8,17 +6,13 @@ local SceneManager = {
     current_scene_name = nil,
     current_scene = nil,
     scenes = {},
-    scene_stack = {},
-    current_game_state = nil,
-    current_settings = nil
+    scene_stack = {}
 }
 
 function SceneManager:init()
-    self.current_game_state = GameState:new()
-    self.current_settings = Settings:new()
     self.dialogue_engine = DialogueEngine:new()
 
-    EventBus:on("next_dialogue", function()
+    EventBus.on("next_dialogue", function()
         if self.dialogue_engine.current_dialogue and self.dialogue_engine.current_dialogue.text and
             self.dialogue_engine.current_dialogue.displayed_chars < #self.dialogue_engine.current_dialogue.text then
             -- Skip to full text
@@ -89,7 +83,7 @@ function SceneManager:draw()
     end
     if (self.current_scene_name ~= "main_menu" and self.current_scene_name ~= "pause_menu" and self.current_scene_name ~=
         "load_menu") then
-        HUD.draw(self.current_game_state, self.current_settings, self.dialogue_engine.current_dialogue)
+        HUD.draw(self.dialogue_engine.current_dialogue)
     end
 end
 

@@ -7,7 +7,6 @@ SceneManager:register("pause_menu", require("src.shared.ui.scenes.pause_menu"))
 
 function love.load()
     SceneManager:init()
-    -- SceneManager.current_game_state = game_state:new()
     SceneManager:switch_to("main_menu")
 end
 

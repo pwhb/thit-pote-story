@@ -1,5 +1,5 @@
 local scene_manager = require("src.shared.ui.scene_manager")
-local ux = require("src.shared.ui.utils.ux")
+local ux = require("src.shared.utils.ux")
 local assets = require("data.static.assets.init")
 local EventBus = require("src.shared.event_bus")
 local Game = {
@@ -74,23 +74,8 @@ function Game:keypressed(key)
     end
 
     if key == "return" or key == "space" then
-        EventBus:emit("next_dialogue")
+        EventBus.emit("next_dialogue")
     end
-
-    -- if scene_manager.current_game_state and scene_manager.current_game_state.dialogue_engine then
-    --     if key == "return" or key == "space" then
-    --         if scene_manager.current_game_state.dialogue_engine.current_dialogue and
-    --             scene_manager.current_game_state.dialogue_engine.current_dialogue.text and
-    --             scene_manager.current_game_state.dialogue_engine.current_dialogue.displayed_chars <
-    --             #scene_manager.current_game_state.dialogue_engine.current_dialogue.text then
-    --             -- Skip to full text
-    --             scene_manager.current_game_state.dialogue_engine.current_dialogue.displayed_chars =
-    --                 #scene_manager.current_game_state.dialogue_engine.current_dialogue.text
-    --         else
-    --             scene_manager.current_game_state.dialogue_engine:next()
-    --         end
-    --     end
-    -- end
 end
 
 function Game:resize(w, h)

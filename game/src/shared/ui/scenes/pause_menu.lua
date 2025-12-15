@@ -1,6 +1,6 @@
 local scene_manager = require("src.shared.ui.scene_manager")
-local ux = require("src.shared.ui.utils.ux")
-local draw = require("src.shared.ui.utils.draw")
+local ux = require("src.shared.utils.ux")
+local draw = require("src.shared.utils.draw")
 local scene = {}
 
 local options = {"Resume", "Save", "Settings", "Main Menu", "Quit"}
