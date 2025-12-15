@@ -1,7 +1,7 @@
 local hud = require("src.shared.ui.components.hud")
-local game_state = require("src.shared.store.game_state")
-local settings = require("src.shared.store.settings")
-local scene_manager = {
+local GameState = require("src.shared.store.game_state")
+local Settings = require("src.shared.store.settings")
+local SceneManager = {
     is_loading = false,
     current_scene_name = nil,
     current_scene = nil,
@@ -11,12 +11,12 @@ local scene_manager = {
     current_settings = nil
 }
 
-function scene_manager:push(scene_name)
+function SceneManager:push(scene_name)
     table.insert(self.scene_stack, self.current_scene_name)
     self:switch_to(scene_name)
 end
 
-function scene_manager:pop()
+function SceneManager:pop()
     if #self.scene_stack == 0 then
         self:switch_to("main_menu")
         return
@@ -26,7 +26,7 @@ function scene_manager:pop()
     self:switch_to(previous_scene)
 end
 
-function scene_manager:switch_to(scene_name)
+function SceneManager:switch_to(scene_name)
     self.is_loading = true
     if self.current_scene and self.current_scene.exit then
         self.current_scene:exit()
@@ -41,25 +41,25 @@ function scene_manager:switch_to(scene_name)
     self.current_scene_name = scene_name
     if self.current_scene and self.current_scene.enter then
         if scene_name == "vn" or scene_name == "rpg" then
-            self.current_game_state = game_state:new()
-            self.current_settings = settings:new()
+            self.current_game_state = GameState:new()
+            self.current_settings = Settings:new()
         end
         self.current_scene:enter()
     end
     self.is_loading = false
 end
 
-function scene_manager:register(name, scene_module)
+function SceneManager:register(name, scene_module)
     self.scenes[name] = scene_module
 end
 
-function scene_manager:update(dt)
+function SceneManager:update(dt)
     if self.current_scene and self.current_scene.update then
         self.current_scene:update(dt)
     end
 end
 
-function scene_manager:draw()
+function SceneManager:draw()
     -- Draw the underlying scene (the one BELOW the pause menu)
     if #self.scene_stack > 0 then
         local previous_scene = self.scenes[self.scene_stack[#self.scene_stack]]
@@ -78,16 +78,16 @@ function scene_manager:draw()
     end
 end
 
-function scene_manager:keypressed(key)
+function SceneManager:keypressed(key)
     if self.current_scene and self.current_scene.keypressed then
         self.current_scene:keypressed(key)
     end
 end
 
-function scene_manager:resize(w, h)
+function SceneManager:resize(w, h)
     if self.current_scene and self.current_scene.resize then
         self.current_scene:resize(w, h)
     end
 end
 
-return scene_manager
+return SceneManager

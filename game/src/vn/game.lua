@@ -2,7 +2,7 @@ local scene_manager = require("src.shared.ui.scene_manager")
 
 local ux = require("src.shared.ui.utils.ux")
 local assets = require("data.static.assets.init")
-local game = {
+local Game = {
     ---@type love.Image
     current_background = nil,
     ---@type love.Source
@@ -11,7 +11,7 @@ local game = {
     sounds = {}
 }
 
-function game:load_assets()
+function Game:load_assets()
     for key, value in pairs(assets.backgrounds) do
         self.backgrounds[key] = love.graphics.newImage(value)
     end
@@ -23,12 +23,12 @@ function game:load_assets()
     end
 end
 
-function game:enter()
+function Game:enter()
     self:load_assets()
     -- audio
     self.pause_sound = love.audio.newSource("assets/audio/bfxr/pause.wav", "static")
 
-    -- game
+    -- Game
     local script = scene_manager.current_game_state.dialogue_engine:load_script("000000")
     if script.background and self.backgrounds[script.background] then
         self.current_background = self.backgrounds[script.background]
@@ -54,20 +54,20 @@ function game:enter()
     end
 end
 
-function game:exit()
+function Game:exit()
 
 end
 
-function game:update(dt)
+function Game:update(dt)
     scene_manager.current_game_state.dialogue_engine:update(0.03)
 end
 
-function game:draw()
+function Game:draw()
     love.graphics.setColor(1, 1, 1)
     love.graphics.draw(self.current_background, -self.bg_offset_x, -self.bg_offset_y, 0, self.bg_scale, self.bg_scale)
 end
 
-function game:keypressed(key)
+function Game:keypressed(key)
     if key == "escape" then
         ux.action_ux(self.pause_sound)
         scene_manager:push("pause_menu")
@@ -89,7 +89,7 @@ function game:keypressed(key)
     end
 end
 
-function game:resize(w, h)
+function Game:resize(w, h)
     if self.current_background then
         local img_w, img_h = self.current_background:getDimensions()
 
@@ -102,4 +102,4 @@ function game:resize(w, h)
     end
 end
 
-return game
+return Game

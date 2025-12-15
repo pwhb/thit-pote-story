@@ -1,11 +1,11 @@
 local scripts = require("data.static.scripts.init")
-local dialogue_engine = {
+local DialogueEngine = {
     current_index = nil,
     current_script = nil,
     current_dialogue = nil
 }
 
-function dialogue_engine:new(dialogue)
+function DialogueEngine:new(dialogue)
     dialogue = dialogue or ""
     local obj = {
         current_dialogue = dialogue
@@ -15,7 +15,7 @@ function dialogue_engine:new(dialogue)
     return obj
 end
 
-function dialogue_engine:load_script(code)
+function DialogueEngine:load_script(code)
     self.current_script = scripts[code]
     self.current_index = 1
     self.current_dialogue = self.current_script and self.current_script["nodes"][self.current_index]
@@ -24,15 +24,15 @@ function dialogue_engine:load_script(code)
     return self.current_script
 end
 
-function dialogue_engine:set(dialogue)
+function DialogueEngine:set(dialogue)
     self.current_dialogue = dialogue
 end
 
-function dialogue_engine:get()
+function DialogueEngine:get()
     return self.current_dialogue
 end
 
-function dialogue_engine:next()
+function DialogueEngine:next()
     local next_node = self.current_script["nodes"][self.current_index]["next_node"]
     self.current_index = next_node and next_node or self.current_index + 1
     self.current_dialogue = self.current_script and self.current_script["nodes"][self.current_index]
@@ -40,7 +40,7 @@ function dialogue_engine:next()
     self.current_dialogue.start_time = love.timer.getTime() -- When typing started
 end
 
-function dialogue_engine:update(speed)
+function DialogueEngine:update(speed)
     if self.current_dialogue and self.current_dialogue.text and self.current_dialogue.displayed_chars <
         #self.current_dialogue.text then
         local elapsed = love.timer.getTime() - self.current_dialogue.start_time
@@ -49,8 +49,8 @@ function dialogue_engine:update(speed)
     end
 end
 
-function dialogue_engine:clear()
+function DialogueEngine:clear()
     self.current_dialogue = nil
 end
 
-return dialogue_engine
+return DialogueEngine

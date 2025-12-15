@@ -1,6 +1,6 @@
-local settings = {}
+local Settings = {}
 
-function settings:new()
+function Settings:new()
     local obj = {
         lang = "en",
         audio = true
@@ -10,8 +10,8 @@ function settings:new()
     return obj
 end
 
-function settings:get()
+function Settings:get()
     return self
 end
 
-return settings
+return Settings

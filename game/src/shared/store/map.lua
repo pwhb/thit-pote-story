@@ -1,3 +1,3 @@
-local map = {}
+local Map = {}
 
-return map
+return Map

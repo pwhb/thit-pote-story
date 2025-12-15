@@ -1,11 +1,11 @@
 local time_periods = require("data.static.time_periods")
-local clock = {
+local Clock = {
     twilight_index = 1,
     default = 2,
     day_range = {2, 6}
 }
 
-function clock:new(index)
+function Clock:new(index)
     index = index or self.default
     local obj = {
         current_period = index
@@ -15,7 +15,7 @@ function clock:new(index)
     return obj
 end
 
-function clock:get()
+function Clock:get()
     local time_of_day = "night"
     if self.current_period >= self.day_range[1] and self.current_period <= self.day_range[2] then
         time_of_day = "day"
@@ -26,7 +26,7 @@ function clock:get()
     }
 end
 
-function clock:advance(is_twilight)
+function Clock:advance(is_twilight)
     is_twilight = is_twilight or false
     self.current_period = self.current_period + 1
     if self.current_period > #time_periods then
@@ -34,4 +34,4 @@ function clock:advance(is_twilight)
     end
 end
 
-return clock
+return Clock

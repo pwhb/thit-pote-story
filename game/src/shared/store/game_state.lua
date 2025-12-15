@@ -1,15 +1,15 @@
 local store = require("src.shared.store.init")
 
-local game_state = {}
+local GameState = {}
 
-function game_state:new()
+function GameState:new()
     local obj = {
         day = 1,
         location = "Judson",
-        clock = store.clock:new(1),
-        emotion = store.emotion:new(0, 0),
+        clock = store.Clock:new(1),
+        emotion = store.Emotion:new(0, 0),
         energy = 100,
-        dialogue_engine = store.dialogue_engine:new(),
+        dialogue_engine = store.DialogueEngine:new(),
         character_book = store.character_book:new()
     }
     setmetatable(obj, self)
@@ -17,8 +17,8 @@ function game_state:new()
     return obj
 end
 
-function game_state:get()
+function GameState:get()
     return self
 end
 
-return game_state
+return GameState

@@ -1,7 +1,7 @@
 local characters = require("data.static.characters.init")
-local character_book = {}
+local CharacterBook = {}
 
-function character_book:new(index)
+function CharacterBook:new(index)
     index = index or self.default
     local obj = {
         ["PLAYER"] = {
@@ -27,12 +27,12 @@ function character_book:new(index)
     return obj
 end
 
-function character_book:get(code)
+function CharacterBook:get(code)
     return self[code]
 end
 
-function character_book:set(code, value)
+function CharacterBook:set(code, value)
     self[code] = value
 end
 
-return character_book
+return CharacterBook

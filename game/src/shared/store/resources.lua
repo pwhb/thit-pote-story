@@ -1,2 +1,2 @@
-local resources = {}
-return resources
+local Resources = {}
+return Resources

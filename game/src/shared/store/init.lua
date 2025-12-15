@@ -1,7 +1,7 @@
 return {
-    clock = require("src.shared.store.clock"),
-    emotion = require("src.shared.store.emotion"),
-    resources = require("src.shared.store.resources"),
-    dialogue_engine = require("src.shared.store.dialogue_engine"),
-    character_book = require("src.shared.store.character_book"),
+    Clock = require("src.shared.store.clock"),
+    Emotion = require("src.shared.store.emotion"),
+    Resources = require("src.shared.store.resources"),
+    DialogueEngine = require("src.shared.store.dialogue_engine"),
+    character_book = require("src.shared.store.character_book")
 }
