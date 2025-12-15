@@ -9,7 +9,6 @@ function GameState:new()
         clock = store.Clock:new(1),
         emotion = store.Emotion:new(0, 0),
         energy = 100,
-        dialogue_engine = store.DialogueEngine:new(),
         character_book = store.character_book:new()
     }
     setmetatable(obj, self)

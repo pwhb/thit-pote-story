@@ -1,15 +1,13 @@
 local dialogue_box = require("src.shared.ui.components.dialogue_box")
-local hud = {}
+local HUD = {}
 
-function hud.draw(game_state, settings)
+function HUD.draw(game_state, settings, dialogue)
     local w, h = love.graphics.getDimensions()
     local font = love.graphics.newFont(16)
     local day = string.format("Day %d", game_state.day)
     local period = game_state.clock:get().name[settings.lang]
     local location = game_state.location
     local emotion = love.graphics.newText(font, game_state.emotion:get())
-    local character_book = game_state.character_book
-    local dialogue_engine = game_state.dialogue_engine
     love.graphics.setFont(font)
     love.graphics.setColor(1, 1, 1)
     love.graphics.printf(day, 10, 10, 360)
@@ -25,11 +23,9 @@ function hud.draw(game_state, settings)
     love.graphics.setColor(0.8, 0.2, 0.2)
     love.graphics.rectangle("fill", w - bar_width - 10, 30, fill, 10)
 
-    if dialogue_engine and character_book then
-        local dialogue = dialogue_engine:get()
-     
+    if dialogue then
         dialogue_box.draw(dialogue, dialogue.speaker)
     end
 end
 
-return hud
+return HUD

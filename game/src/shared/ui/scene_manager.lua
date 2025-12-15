@@ -1,6 +1,8 @@
-local hud = require("src.shared.ui.components.hud")
+local HUD = require("src.shared.ui.components.hud")
 local GameState = require("src.shared.store.game_state")
 local Settings = require("src.shared.store.settings")
+local EventBus = require("src.shared.event_bus")
+local DialogueEngine = require("src.shared.store.dialogue_engine")
 local SceneManager = {
     is_loading = false,
     current_scene_name = nil,
@@ -10,6 +12,23 @@ local SceneManager = {
     current_game_state = nil,
     current_settings = nil
 }
+
+function SceneManager:init()
+    self.current_game_state = GameState:new()
+    self.current_settings = Settings:new()
+    self.dialogue_engine = DialogueEngine:new()
+
+    EventBus:on("next_dialogue", function()
+        if self.dialogue_engine.current_dialogue and self.dialogue_engine.current_dialogue.text and
+            self.dialogue_engine.current_dialogue.displayed_chars < #self.dialogue_engine.current_dialogue.text then
+            -- Skip to full text
+            self.dialogue_engine.current_dialogue.displayed_chars = #self.dialogue_engine.current_dialogue.text
+        else
+            self.dialogue_engine:next()
+        end
+
+    end)
+end
 
 function SceneManager:push(scene_name)
     table.insert(self.scene_stack, self.current_scene_name)
@@ -40,10 +59,6 @@ function SceneManager:switch_to(scene_name)
     self.current_scene = new_scene
     self.current_scene_name = scene_name
     if self.current_scene and self.current_scene.enter then
-        if scene_name == "vn" or scene_name == "rpg" then
-            self.current_game_state = GameState:new()
-            self.current_settings = Settings:new()
-        end
         self.current_scene:enter()
     end
     self.is_loading = false
@@ -74,7 +89,7 @@ function SceneManager:draw()
     end
     if (self.current_scene_name ~= "main_menu" and self.current_scene_name ~= "pause_menu" and self.current_scene_name ~=
         "load_menu") then
-        hud.draw(self.current_game_state, self.current_settings)
+        HUD.draw(self.current_game_state, self.current_settings, self.dialogue_engine.current_dialogue)
     end
 end
 
