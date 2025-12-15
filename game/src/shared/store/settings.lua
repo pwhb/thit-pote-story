@@ -4,9 +4,9 @@ local Factory = require("src.shared.utils.factory")
 --- @field public lang string
 --- @field public audio boolean
 --- @field public typewriter_speed number
---- @field public set_lang fun(lang: string)
---- @field public set_audio fun(enabled: boolean)
---- @field public set_typewriter_speed fun(speed: number)
+--- @field public set_lang fun(self: Settings,lang: string)
+--- @field public set_audio fun(self: Settings,enabled: boolean)
+--- @field public set_typewriter_speed fun(self: Settings,speed: number)
 local Settings = Factory.encapsulated({
     lang = "en",
     audio = true,

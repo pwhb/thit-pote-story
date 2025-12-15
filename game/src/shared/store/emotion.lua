@@ -1,21 +1,20 @@
+local Factory = require("src.shared.utils.factory")
 local emotion_states = require("data.static.emotion_states")
-local Emotion = {}
+--- @class Emotion
+--- @field public new fun(self: Emotion, valence: number, arousal: number): Emotion
+--- @field public get fun(self: Emotion): string
+local Emotion = Factory.class()
 
-function Emotion:new(valence, arousal)
-    local obj = {
-        state = {
-            Valence = valence,
-            Arousal = arousal
-        }
+function Emotion:init(valence, arousal)
+    self.state = {
+        Valence = valence,
+        Arousal = arousal
     }
-    setmetatable(obj, self)
-    self.__index = self
-    return obj
 end
+
 function Emotion:get()
     local current = self.state
     local distances = {}
-
     for name, state in pairs(emotion_states) do
         local dv = current.Valence - state.Valence
         local da = current.Arousal - state.Arousal
@@ -41,3 +40,4 @@ function Emotion:get()
 end
 
 return Emotion
+

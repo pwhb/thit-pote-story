@@ -5,7 +5,7 @@ local Factory = require("src.shared.utils.factory")
 --- @field public day number
 --- @field public location string
 --- @field public clock any
---- @field public emotion any
+--- @field public emotion Emotion
 --- @field public energy any
 --- @field public character_book any
 local GameState = Factory.encapsulated({

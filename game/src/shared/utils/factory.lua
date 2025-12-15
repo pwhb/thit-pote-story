@@ -16,6 +16,28 @@ local function encapsulated(initial_state, method_factory)
     return setmetatable({}, mt)
 end
 
+local function class(base)
+    local c = {}
+    if base then
+        setmetatable(c, {
+            __index = base
+        })
+    end
+
+    function c:new(...)
+        local obj = setmetatable({}, {
+            __index = self
+        })
+        if obj.init then
+            obj:init(...)
+        end
+        return obj
+    end
+
+    return c
+end
+
 return {
-    encapsulated = encapsulated
+    encapsulated = encapsulated,
+    class = class
 }
