@@ -64,7 +64,6 @@ function dialogue_box.draw(dialogue, speaker)
         love.graphics.printf(speaker, box_x + padding, box_y - padding, box_width - padding * 2, "left")
     end
 
-    local text_y = box_y + padding
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.setFont(love.graphics.newFont(16))
 

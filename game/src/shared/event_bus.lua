@@ -13,8 +13,22 @@ function EventBus.on(eventName, func, context)
     })
 end
 
-function EventBus.off(eventName)
+function EventBus.off(eventName, func, context)
+    local event_listeners = listeners[eventName]
+    if not event_listeners then
+        return
+    end
 
+    for i = #event_listeners, 1, -1 do
+        local listener = event_listeners[i]
+        if listener.func == func and listener.context == context then
+            table.remove(event_listeners, i)
+        end
+    end
+
+    if #event_listeners == 0 then
+        listeners[eventName] = nil
+    end
 end
 
 function EventBus.emit(eventName, ...)
