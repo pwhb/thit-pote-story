@@ -59,7 +59,9 @@ function Game:exit()
 end
 
 function Game:update(dt)
-    scene_manager.dialogue_engine:update(0.03)
+    if scene_manager.current_scene_name == "vn" then
+        scene_manager.dialogue_engine:update(0.03)
+    end
 end
 
 function Game:draw()

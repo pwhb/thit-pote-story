@@ -1,4 +1,6 @@
 local scripts = require("data.static.scripts.init")
+local Settings = require("src.shared.store.settings")
+local M = require("src.shared.utils.common")
 local DialogueEngine = {
     current_index = nil,
     current_script = nil,
@@ -15,12 +17,23 @@ function DialogueEngine:new(dialogue)
     return obj
 end
 
+local function prepare_dialogue_node(node_data)
+    if not node_data then
+        return nil
+    end
+
+    local new_dialogue = M.shallow_merge({
+        displayed_chars = 0,
+        accumulated_time = 0
+    }, node_data)
+
+    return new_dialogue
+end
+
 function DialogueEngine:load_script(code)
     self.current_script = scripts[code]
     self.current_index = 1
-    self.current_dialogue = self.current_script and self.current_script["nodes"][self.current_index]
-    self.current_dialogue.displayed_chars = 0 -- How many chars are visible
-    self.current_dialogue.start_time = love.timer.getTime() -- When typing started
+    self.current_dialogue = prepare_dialogue_node(self.current_script["nodes"][self.current_index])
     return self.current_script
 end
 
@@ -35,17 +48,16 @@ end
 function DialogueEngine:next()
     local next_node = self.current_script["nodes"][self.current_index]["next_node"]
     self.current_index = next_node and next_node or self.current_index + 1
-    self.current_dialogue = self.current_script and self.current_script["nodes"][self.current_index]
-    self.current_dialogue.displayed_chars = 0 -- How many chars are visible
-    self.current_dialogue.start_time = love.timer.getTime() -- When typing started
+    self.current_dialogue = prepare_dialogue_node(self.current_script["nodes"][self.current_index])
 end
 
-function DialogueEngine:update(speed)
-    if self.current_dialogue and self.current_dialogue.text and self.current_dialogue.displayed_chars <
-        #self.current_dialogue.text then
-        local elapsed = love.timer.getTime() - self.current_dialogue.start_time
-        local target_chars = math.floor(elapsed / speed)
-        self.current_dialogue.displayed_chars = math.min(target_chars, #self.current_dialogue.text)
+function DialogueEngine:update(dt)
+    local typewriter_speed = Settings.typewriter_speed
+    local dialogue = self.current_dialogue
+    if dialogue and dialogue.text and dialogue.displayed_chars < #dialogue.text then
+        dialogue.accumulated_time = dialogue.accumulated_time + dt
+        local target_chars = math.floor(dialogue.accumulated_time / typewriter_speed)
+        dialogue.displayed_chars = math.min(target_chars, #dialogue.text)
     end
 end
 
