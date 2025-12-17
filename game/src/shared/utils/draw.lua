@@ -17,13 +17,13 @@ function M.render_text(text, x, y, opts)
     end
 
     if shadow then
-
         love.graphics.setColor(0, 0, 0, opts.shadow_alpha or 0.6)
         love.graphics.print(text, true_x + (opts.shadow_offset_x or 2), y + (opts.shadow_offset_y or 2))
     end
 
     love.graphics.setColor(unpack(color))
     love.graphics.print(text, true_x, y)
+    love.graphics.setColor(1, 1, 1)
 end
 
 return M

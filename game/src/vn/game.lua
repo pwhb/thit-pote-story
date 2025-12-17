@@ -1,53 +1,52 @@
 local scene_manager = require("src.shared.ui.scene_manager")
 local ux = require("src.shared.utils.ux")
-local assets = require("data.static.assets.init")
 local EventBus = require("src.shared.event_bus")
+local AssetLoader = require("src.shared.store.asset_loader")
 local Game = {
     ---@type love.Image
     current_background = nil,
     ---@type love.Source
     current_background_sound = nil,
-    images = {},
-    sounds = {}
+    current_script = nil,
+    bg_canvas = nil
+
 }
 
-function Game:load_assets()
-    for key, value in pairs(assets.images) do
-        self.images[key] = love.graphics.newImage(value)
-    end
+function Game:load_assets(image_assets, audio_assets)
+    AssetLoader.load_image_assets(image_assets)
+    AssetLoader.load_audio_assets(audio_assets)
+end
 
-    for key, value in pairs(assets.sounds) do
-        local path = value["path"]
-        local type = value["type"] and value["type"] or "static"
-        self.sounds[key] = love.audio.newSource(path, type)
-    end
+function Game:draw_canvas()
+
+    self.bg_canvas = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
+    love.graphics.setCanvas(self.bg_canvas)
+    love.graphics.clear()
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.draw(self.current_background, -self.bg_offset_x, -self.bg_offset_y, 0, self.bg_scale, self.bg_scale)
+    love.graphics.setCanvas() --
 end
 
 function Game:enter()
-    self:load_assets()
     -- audio
     self.pause_sound = love.audio.newSource("assets/audio/bfxr/pause.wav", "static")
 
     -- Game
-    local script = scene_manager.dialogue_engine:load_script("0")
-    if script.background and self.images[script.background] then
-        self.current_background = self.images[script.background]
-        local img_w, img_h = self.current_background:getDimensions()
-        local screen_w, screen_h = love.graphics.getDimensions()
-        local scale_x = screen_w / img_w
-        local scale_y = screen_h / img_h
-        self.bg_scale = math.max(scale_x, scale_y)
-        self.bg_offset_x = (img_w * self.bg_scale - screen_w) / 2
-        self.bg_offset_y = (img_h * self.bg_scale - screen_h) / 2
+    self.script = scene_manager.dialogue_engine:load_script("0")
+    self:load_assets(self.script.image_assets, self.script.audio_assets)
+    if self.script.background and AssetLoader.image_assets[self.script.background] then
+        self.current_background = AssetLoader.image_assets[self.script.background]
+        local w, h = love.graphics.getDimensions()
+        self:resize(w, h)
     end
-    if script.background_sound and self.sounds[script.background_sound] then
-        self.current_background_sound = self.sounds[script.background_sound]
-        if script.background_sound_config then
-            if script.background_sound_config.volume then
-                self.current_background_sound:setVolume(script.background_sound_config.volume)
+    if self.script.background_sound and AssetLoader.audio_assets[self.script.background_sound] then
+        self.current_background_sound = AssetLoader.audio_assets[self.script.background_sound]
+        if self.script.background_sound_config then
+            if self.script.background_sound_config.volume then
+                self.current_background_sound:setVolume(self.script.background_sound_config.volume)
             end
-            if script.background_sound_config.loop then
-                self.current_background_sound:setLooping(script.background_sound_config.loop)
+            if self.script.background_sound_config.loop then
+                self.current_background_sound:setLooping(self.script.background_sound_config.loop)
             end
         end
         love.audio.play(self.current_background_sound)
@@ -65,8 +64,7 @@ function Game:update(dt)
 end
 
 function Game:draw()
-    love.graphics.setColor(1, 1, 1)
-    love.graphics.draw(self.current_background, -self.bg_offset_x, -self.bg_offset_y, 0, self.bg_scale, self.bg_scale)
+    love.graphics.draw(self.bg_canvas, 0, 0)
 end
 
 function Game:keypressed(key)
@@ -90,6 +88,7 @@ function Game:resize(w, h)
 
         self.bg_offset_x = (img_w * self.bg_scale - w) / 2
         self.bg_offset_y = (img_h * self.bg_scale - h) / 2
+        self:draw_canvas()
     end
 end
 
