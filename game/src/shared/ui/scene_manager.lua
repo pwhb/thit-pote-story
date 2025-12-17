@@ -20,7 +20,6 @@ function SceneManager:init()
         else
             self.dialogue_engine:next()
         end
-
     end)
 end
 

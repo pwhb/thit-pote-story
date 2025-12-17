@@ -10,7 +10,8 @@ local Factory = require("src.shared.utils.factory")
 local Settings = Factory.encapsulated({
     lang = "en",
     audio = true,
-    typewriter_speed = 0.075
+    -- the less the faster -> normal 0.04, fast 0.02, faster 0.01, slow 0.08, slower 0.1
+    typewriter_speed = 0.01
 }, function(private)
     return {
         set_lang = function(v)

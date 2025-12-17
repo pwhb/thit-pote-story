@@ -7,13 +7,13 @@ local Game = {
     current_background = nil,
     ---@type love.Source
     current_background_sound = nil,
-    backgrounds = {},
+    images = {},
     sounds = {}
 }
 
 function Game:load_assets()
-    for key, value in pairs(assets.backgrounds) do
-        self.backgrounds[key] = love.graphics.newImage(value)
+    for key, value in pairs(assets.images) do
+        self.images[key] = love.graphics.newImage(value)
     end
 
     for key, value in pairs(assets.sounds) do
@@ -29,9 +29,9 @@ function Game:enter()
     self.pause_sound = love.audio.newSource("assets/audio/bfxr/pause.wav", "static")
 
     -- Game
-    local script = scene_manager.dialogue_engine:load_script("000000")
-    if script.background and self.backgrounds[script.background] then
-        self.current_background = self.backgrounds[script.background]
+    local script = scene_manager.dialogue_engine:load_script("0")
+    if script.background and self.images[script.background] then
+        self.current_background = self.images[script.background]
         local img_w, img_h = self.current_background:getDimensions()
         local screen_w, screen_h = love.graphics.getDimensions()
         local scale_x = screen_w / img_w
@@ -60,7 +60,7 @@ end
 
 function Game:update(dt)
     if scene_manager.current_scene_name == "vn" then
-        scene_manager.dialogue_engine:update(0.03)
+        scene_manager.dialogue_engine:update(dt)
     end
 end
 

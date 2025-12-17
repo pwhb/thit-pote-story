@@ -1,4 +1,4 @@
 return {
-    backgrounds = require("data.static.assets.backgrounds"),
+    images = require("data.static.assets.images"),
     sounds = require("data.static.assets.sounds")
 }

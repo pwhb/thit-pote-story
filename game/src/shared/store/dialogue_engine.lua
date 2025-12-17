@@ -49,6 +49,7 @@ function DialogueEngine:next()
     local next_node = self.current_script["nodes"][self.current_index]["next_node"]
     self.current_index = next_node and next_node or self.current_index + 1
     self.current_dialogue = prepare_dialogue_node(self.current_script["nodes"][self.current_index])
+    return self.current_dialogue
 end
 
 function DialogueEngine:update(dt)
