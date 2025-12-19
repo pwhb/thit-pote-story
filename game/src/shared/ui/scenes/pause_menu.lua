@@ -1,13 +1,14 @@
 local scene_manager = require("src.shared.ui.scene_manager")
 local ux = require("src.shared.utils.ux")
 local draw = require("src.shared.utils.draw")
+local constants = require("src.shared.constants")
 local scene = {}
 
 local options = {"Resume", "Save", "Settings", "Main Menu", "Quit"}
 
 function scene:enter()
     self.selected = 1
-    self.change_sound = love.audio.newSource("assets/audio/bfxr/change_2.wav", "static")
+    self.change_sound = love.audio.newSource(constants.CHANGE_SOUND, "static")
 end
 
 function scene:draw()

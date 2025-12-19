@@ -13,7 +13,8 @@ return {
     ["nodes"] = {{
         ["id"] = 1,
         ["text"] = "I find myself panting.",
-        ["type"] = "monologue"
+        ["type"] = "monologue",
+        ["next_node"] = 16,
     }, {
         ["id"] = 2,
         ["text"] = "I feel like I just woke up from a bizarre nightmare. A very long one.",

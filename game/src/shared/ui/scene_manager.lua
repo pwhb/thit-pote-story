@@ -10,15 +10,13 @@ local SceneManager = {
 }
 
 function SceneManager:init()
-    self.dialogue_engine = DialogueEngine:new()
-
     EventBus.on("next_dialogue", function()
-        if self.dialogue_engine.current_dialogue and self.dialogue_engine.current_dialogue.text and
-            self.dialogue_engine.current_dialogue.displayed_chars < #self.dialogue_engine.current_dialogue.text then
+        if DialogueEngine.current_dialogue and DialogueEngine.current_dialogue.text and
+            DialogueEngine.current_dialogue.displayed_chars < #DialogueEngine.current_dialogue.text then
             -- Skip to full text
-            self.dialogue_engine.current_dialogue.displayed_chars = #self.dialogue_engine.current_dialogue.text
+            DialogueEngine.current_dialogue.displayed_chars = #DialogueEngine.current_dialogue.text
         else
-            self.dialogue_engine:next()
+            DialogueEngine.next()
         end
     end)
 end
@@ -82,7 +80,7 @@ function SceneManager:draw()
     end
     if (self.current_scene_name ~= "main_menu" and self.current_scene_name ~= "pause_menu" and self.current_scene_name ~=
         "load_menu") then
-        HUD.draw(self.dialogue_engine.current_dialogue)
+        HUD.draw(DialogueEngine.current_dialogue)
     end
 end
 

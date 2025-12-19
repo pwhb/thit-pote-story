@@ -1,4 +1,11 @@
-local dialogue_box = {}
+local GameState = require("src.shared.store.game_state")
+local Settings = require("src.shared.store.settings")
+local AssetLoader = require("src.shared.store.asset_loader")
+local constants = require("src.shared.constants")
+local dialogue_box = {
+    ---@type love.Image
+    avatar = nil
+}
 
 local function utf8_safe_sub(str, start_char, end_char)
     local pos = 1
@@ -39,7 +46,18 @@ local function utf8_safe_sub(str, start_char, end_char)
     return str:sub(start_byte, end_byte)
 end
 
-function dialogue_box.draw(dialogue, speaker)
+function dialogue_box:draw_avatar()
+    if not self.avatar then
+        return
+    end
+    local img_w, img_h = self.avatar:getDimensions()
+    local scale_x = constants.AVATAR_W / img_w
+    local scale_y = constants.AVATAR_H / img_h
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.draw(self.avatar, self.box_x, self.box_y - constants.AVATAR_W - 20, 0, scale_x, scale_y)
+end
+
+function dialogue_box:draw(dialogue)
     local text = dialogue.text
     if not text then
         return
@@ -47,21 +65,31 @@ function dialogue_box.draw(dialogue, speaker)
 
     local w, h = love.graphics.getDimensions()
 
-    local box_x, box_y = 20, h - 120
-    local box_width, box_height = w - 40, 100
+    self.box_x = 30
+    self.box_y = h - 120
+
+    local box_width, box_height = w - self.box_x * 2, 100
+    if w > 1024 then
+        box_width = 960
+        self.box_x = w / 2 - box_width / 2
+    end
     local corner_radius = 8
     local padding = 20
 
     love.graphics.setColor(0, 0, 0, 0.3)
-    love.graphics.rectangle("fill", box_x + 4, box_y + 4, box_width, box_height, corner_radius, corner_radius)
+    love.graphics.rectangle("fill", self.box_x + 4, self.box_y + 4, box_width, box_height, corner_radius, corner_radius)
 
     love.graphics.setColor(0.1, 0.1, 0.15, 0.4)
-    love.graphics.rectangle("fill", box_x, box_y, box_width, box_height, corner_radius, corner_radius)
+    love.graphics.rectangle("fill", self.box_x, self.box_y, box_width, box_height, corner_radius, corner_radius)
 
-    if speaker then
+    self:draw_avatar()
+    if dialogue.speaker then
+        local speaker = GameState.character_registry:get_character(dialogue.speaker)
+        local name = speaker.name[speaker.name_index][Settings.lang]
+        self.avatar = AssetLoader.avatar_assets[dialogue.speaker]["default"]
         love.graphics.setColor(0.8, 0.8, 1, 1)
         love.graphics.setFont(love.graphics.newFont(18))
-        love.graphics.printf(speaker, box_x + padding, box_y - padding, box_width - padding * 2, "left")
+        love.graphics.printf(name, self.box_x + padding, self.box_y - padding, box_width - padding * 2, "left")
     end
 
     love.graphics.setColor(1, 1, 1, 1)
@@ -76,7 +104,7 @@ function dialogue_box.draw(dialogue, speaker)
     love.graphics.setColor(1, 1, 1)
     love.graphics.setFont(love.graphics.newFont(16))
 
-    love.graphics.printf(visible_text, box_x + padding, box_y + padding, box_width - padding * 2, "left")
+    love.graphics.printf(visible_text, self.box_x + padding, self.box_y + padding, box_width - padding * 2, "left")
 
 end
 

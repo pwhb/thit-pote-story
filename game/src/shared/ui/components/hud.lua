@@ -25,9 +25,9 @@ function HUD.draw(dialogue)
     love.graphics.rectangle("fill", w - bar_width - 10, 30, bar_width, 10)
     love.graphics.setColor(0.8, 0.2, 0.2)
     love.graphics.rectangle("fill", w - bar_width - 10, 30, fill, 10)
-
+    love.graphics.setColor(1, 1, 1)
     if dialogue then
-        dialogue_box.draw(dialogue, dialogue.speaker)
+        dialogue_box:draw(dialogue)
     end
 end
 

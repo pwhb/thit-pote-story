@@ -7,6 +7,7 @@ return {
             ["en"] = "Phone Waiyam Hein",
             ["my"] = "Phone Waiyam Hein"
         }},
+        ["name_index"] = 1,
         ["avatar"] = {
             ["default"] = "assets/image/avatar/phone_waiyam_hein.png"
         }
@@ -22,6 +23,7 @@ return {
             ["en"] = "Cassandra",
             ["my"] = "Cassandra"
         }},
+        ["name_index"] = 1,
         ["avatar"] = {
             ["default"] = "assets/image/avatar/cassandra.png"
         }

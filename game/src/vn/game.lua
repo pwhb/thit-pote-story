@@ -2,24 +2,26 @@ local scene_manager = require("src.shared.ui.scene_manager")
 local ux = require("src.shared.utils.ux")
 local EventBus = require("src.shared.event_bus")
 local AssetLoader = require("src.shared.store.asset_loader")
+local DialogueEngine = require("src.shared.store.dialogue_engine")
+local constants = require("src.shared.constants")
 local Game = {
     ---@type love.Image
     current_background = nil,
     ---@type love.Source
     current_background_sound = nil,
-    current_script = nil,
     bg_canvas = nil
 
 }
 
-function Game:load_assets(image_assets, audio_assets)
+function Game:load_assets(image_assets, audio_assets, character_assets)
     AssetLoader.load_image_assets(image_assets)
     AssetLoader.load_audio_assets(audio_assets)
+    AssetLoader.load_avatar_assets(character_assets)
 end
 
 function Game:draw_canvas()
-
-    self.bg_canvas = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
+    local w, h = love.graphics.getDimensions()
+    self.bg_canvas = love.graphics.newCanvas(w, h)
     love.graphics.setCanvas(self.bg_canvas)
     love.graphics.clear()
     love.graphics.setColor(1, 1, 1)
@@ -29,24 +31,24 @@ end
 
 function Game:enter()
     -- audio
-    self.pause_sound = love.audio.newSource("assets/audio/bfxr/pause.wav", "static")
+    self.pause_sound = love.audio.newSource(constants.PAUSE_SOUND, "static")
 
     -- Game
-    self.script = scene_manager.dialogue_engine:load_script("0")
-    self:load_assets(self.script.image_assets, self.script.audio_assets)
-    if self.script.background and AssetLoader.image_assets[self.script.background] then
-        self.current_background = AssetLoader.image_assets[self.script.background]
+    local script = DialogueEngine.load_script(constants.INIT_SCENE)
+    self:load_assets(script.image_assets, script.audio_assets, script.characters)
+    if script.background and AssetLoader.image_assets[script.background] then
+        self.current_background = AssetLoader.image_assets[script.background]
         local w, h = love.graphics.getDimensions()
         self:resize(w, h)
     end
-    if self.script.background_sound and AssetLoader.audio_assets[self.script.background_sound] then
-        self.current_background_sound = AssetLoader.audio_assets[self.script.background_sound]
-        if self.script.background_sound_config then
-            if self.script.background_sound_config.volume then
-                self.current_background_sound:setVolume(self.script.background_sound_config.volume)
+    if script.background_sound and AssetLoader.audio_assets[script.background_sound] then
+        self.current_background_sound = AssetLoader.audio_assets[script.background_sound]
+        if script.background_sound_config then
+            if script.background_sound_config.volume then
+                self.current_background_sound:setVolume(script.background_sound_config.volume)
             end
-            if self.script.background_sound_config.loop then
-                self.current_background_sound:setLooping(self.script.background_sound_config.loop)
+            if script.background_sound_config.loop then
+                self.current_background_sound:setLooping(script.background_sound_config.loop)
             end
         end
         love.audio.play(self.current_background_sound)
@@ -59,7 +61,7 @@ end
 
 function Game:update(dt)
     if scene_manager.current_scene_name == "vn" then
-        scene_manager.dialogue_engine:update(dt)
+        DialogueEngine.update(dt)
     end
 end
 

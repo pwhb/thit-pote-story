@@ -20,10 +20,10 @@ function scene:enter()
     self.background_sound:setVolume(0.1)
     love.audio.play(self.background_sound)
 
-    self.select_sound = love.audio.newSource("assets/audio/bfxr/select.wav", "static")
-    self.change_sound = love.audio.newSource("assets/audio/bfxr/change_2.wav", "static")
+    self.select_sound = love.audio.newSource(constants.SELECT_SOUND, "static")
+    self.change_sound = love.audio.newSource(constants.CHANGE_SOUND, "static")
 
-    self.background = love.graphics.newImage("assets/image/background/main_menu_1.jpg")
+    self.background = love.graphics.newImage(constants.MAIN_MENU_BG)
     local img_w, img_h = self.background:getDimensions()
     local screen_w, screen_h = love.graphics.getDimensions()
 
