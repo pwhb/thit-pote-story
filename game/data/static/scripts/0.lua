@@ -82,7 +82,7 @@ return {
         ["function"] = "play_sound"
     }, {
         ["id"] = 18,
-        ["text"] = "...",
+        ["text"] = "Hello there",
         ["type"] = "dialogue",
         ["speaker"] = "CASSANDRA"
     }, {

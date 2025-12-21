@@ -11,8 +11,8 @@ local constants = {
 
     MAIN_MENU_BG = "assets/image/background/main_menu_1.jpg",
 
-    AVATAR_W = 200,
-    AVATAR_H = 200
+    AVATAR_W = 180,
+    AVATAR_H = 180
 }
 
 return constants
