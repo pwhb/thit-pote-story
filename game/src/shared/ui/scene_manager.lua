@@ -1,5 +1,6 @@
 local HUD = require("src.shared.ui.components.hud")
 local EventBus = require("src.shared.event_bus")
+local CommandRunner = require("src.shared.utils.commands")
 local DialogueEngine = require("src.shared.store.dialogue_engine")
 local SceneManager = {
     is_loading = false,
@@ -13,10 +14,12 @@ function SceneManager:init()
     EventBus.on("next_dialogue", function()
         if DialogueEngine.current_dialogue and DialogueEngine.current_dialogue.text and
             DialogueEngine.current_dialogue.displayed_chars < #DialogueEngine.current_dialogue.text then
-            -- Skip to full text
             DialogueEngine.current_dialogue.displayed_chars = #DialogueEngine.current_dialogue.text
         else
-            DialogueEngine.next()
+            local cmd = DialogueEngine.next()
+            if cmd then
+                CommandRunner[cmd.func](cmd.args)
+            end
         end
     end)
 end

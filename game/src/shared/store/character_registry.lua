@@ -16,5 +16,9 @@ function CharacterRegistry:get_character(code)
     return self.characters[code]
 end
 
+function CharacterRegistry:update_name_index(code, diff)
+    self.characters[code].name_index = self.characters[code].name_index + diff
+end
+
 return CharacterRegistry
 

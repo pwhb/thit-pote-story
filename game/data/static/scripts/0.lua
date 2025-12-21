@@ -14,7 +14,7 @@ return {
         ["id"] = 1,
         ["text"] = "I find myself panting.",
         ["type"] = "monologue",
-        ["next_node"] = 16,
+        ["next_node"] = 16
     }, {
         ["id"] = 2,
         ["text"] = "I feel like I just woke up from a bizarre nightmare. A very long one.",
@@ -79,15 +79,40 @@ return {
         ["id"] = 17,
         ["args"] = {"FOOTSTEP_IN_GRAVEL"},
         ["type"] = "command",
-        ["function"] = "play_sound"
+        ["func"] = "play_sound"
     }, {
         ["id"] = 18,
-        ["text"] = "Hello there",
+        ["text"] = "You see a weary girl walking towards you.",
+        ["type"] = "narration"
+    }, {
+        ["id"] = 19,
+        ["text"] = "Hello old friend. Your heart is heavy.",
         ["type"] = "dialogue",
         ["speaker"] = "CASSANDRA"
     }, {
-        ["id"] = 19,
-        ["text"] = "You see a weary girl.",
-        ["type"] = "narration"
+        ["id"] = 20,
+        ["text"] = "",
+        ["type"] = "choices",
+        ["speaker"] = "CASSANDRA",
+        ["choices"] = {{
+            ["text"] = "Who are you?",
+            ["next_node"] = 18
+        }}
+    }, {
+        ["id"] = 21,
+        ["args"] = {"CASSANDRA", 1},
+        ["type"] = "command",
+        ["func"] = "update_name_index"
+    }, {
+        ["id"] = 22,
+        ["text"] = "I'm in here.",
+        ["type"] = "dialogue",
+        ["speaker"] = "CASSANDRA"
+    }, {
+        ["id"] = 23,
+        ["text"] = "Goodbye!",
+        ["type"] = "dialogue",
+        ["speaker"] = "CASSANDRA"
     }}
+
 }

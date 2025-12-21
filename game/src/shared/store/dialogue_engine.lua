@@ -46,7 +46,9 @@ local DialogueEngine = Factory.encapsulated({
             local next_node = private.current_dialogue["next_node"]
             private.current_index = next_node and next_node or private.current_index + 1
             private.current_dialogue = prepare_dialogue_node(private.current_script["nodes"][private.current_index])
-            return private.current_dialogue
+            if private.current_dialogue.type == "command" then
+                return private.current_dialogue
+            end
         end,
         update = function(dt)
             local typewriter_speed = Settings.typewriter_speed
