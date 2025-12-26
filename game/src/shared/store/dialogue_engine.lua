@@ -18,6 +18,7 @@ end
 
 --- @class DialogueEngine
 --- @field public current_index number
+--- @field public current_choice_id any
 --- @field public current_script any
 --- @field public current_dialogue any
 --- @field public load_script fun(code: string)
@@ -47,6 +48,9 @@ local DialogueEngine = Factory.encapsulated({
             private.current_index = next_node and next_node or private.current_index + 1
             private.current_dialogue = prepare_dialogue_node(private.current_script["nodes"][private.current_index])
             if private.current_dialogue.type == "command" then
+                return private.current_dialogue
+            end
+            if private.current_dialogue.type == "choice" then
                 return private.current_dialogue
             end
         end,

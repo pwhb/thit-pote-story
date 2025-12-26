@@ -2,9 +2,12 @@ local GameState = require("src.shared.store.game_state")
 local Settings = require("src.shared.store.settings")
 local AssetLoader = require("src.shared.store.asset_loader")
 local constants = require("src.shared.constants")
+local DialogueEngine = require("src.shared.store.dialogue_engine")
 local dialogue_box = {
     ---@type love.Image
-    avatar = nil
+    avatar = nil,
+    choices = {},
+    selected_choice = nil
 }
 
 local function utf8_safe_sub(str, start_char, end_char)
@@ -54,10 +57,29 @@ function dialogue_box:draw_avatar()
     local scale_x = constants.AVATAR_W / img_w
     local scale_y = constants.AVATAR_H / img_h
     love.graphics.setColor(1, 1, 1, 0.75)
-    love.graphics.draw(self.avatar, self.box_x, self.box_y - constants.AVATAR_W, 0, scale_x, scale_y)
+    love.graphics.draw(self.avatar, self.box_x, self.box_y - constants.AVATAR_H, 0, scale_x, scale_y)
 end
 
-function dialogue_box:draw(dialogue)
+function dialogue_box:draw_choices()
+    if #self.choices == 0 then
+        return
+    end
+
+    local font = love.graphics.newFont(16)
+    love.graphics.setFont(font)
+    love.graphics.setColor(1, 1, 1)
+    for i, choice in ipairs(self.choices) do
+        local x = self.box_x + constants.AVATAR_W + constants.CHOICE_PADDING
+        local y = self.box_y - (i) * constants.CHOICE_H
+        love.graphics.print(choice.text, x, y)
+    end
+end
+
+function dialogue_box:draw()
+    local dialogue = DialogueEngine.current_dialogue
+    if not dialogue then
+        return
+    end
     local text = dialogue.text
     if not text then
         return
@@ -82,7 +104,6 @@ function dialogue_box:draw(dialogue)
     love.graphics.setColor(0.1, 0.1, 0.15, 0.4)
     love.graphics.rectangle("fill", self.box_x, self.box_y, box_width, box_height, corner_radius, corner_radius)
 
-    self:draw_avatar()
     if dialogue.speaker then
         local speaker = GameState.character_registry:get_character(dialogue.speaker)
         local name = speaker.name[speaker.name_index][Settings.lang]
@@ -90,6 +111,12 @@ function dialogue_box:draw(dialogue)
         love.graphics.setColor(0.8, 0.8, 1, 1)
         love.graphics.setFont(love.graphics.newFont(18))
         love.graphics.printf(name, self.box_x + padding, self.box_y + padding, box_width - padding * 2, "left")
+    end
+
+    if dialogue.type == "choice" then
+        self.choices = dialogue.choices
+    else
+        self.choices = {}
     end
 
     love.graphics.setColor(1, 1, 1, 1)
@@ -105,6 +132,10 @@ function dialogue_box:draw(dialogue)
     love.graphics.setFont(love.graphics.newFont(16))
     local text_y = dialogue.speaker and self.box_y + padding + 36 or self.box_y + padding
     love.graphics.printf(visible_text, self.box_x + padding, text_y, box_width - padding * 2, "left")
+
+    self:draw_avatar()
+
+    self:draw_choices()
 end
 
 return dialogue_box

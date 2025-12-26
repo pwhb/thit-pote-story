@@ -14,7 +14,10 @@ local constants = {
     SOUND_EFFECT_VOLUME = 0.1,
 
     AVATAR_W = 180,
-    AVATAR_H = 180
+    AVATAR_H = 180,
+
+    CHOICE_PADDING = 30,
+    CHOICE_H = 30
 }
 
 return constants

@@ -3,7 +3,7 @@ local GameState = require("src.shared.store.game_state")
 local Settings = require("src.shared.store.settings")
 local HUD = {}
 
-function HUD.draw(dialogue)
+function HUD.draw()
     local lang = Settings.lang
     local w, h = love.graphics.getDimensions()
     local font = love.graphics.newFont(16)
@@ -26,9 +26,9 @@ function HUD.draw(dialogue)
     love.graphics.setColor(0.8, 0.2, 0.2)
     love.graphics.rectangle("fill", w - bar_width - 10, 30, fill, 10)
     love.graphics.setColor(1, 1, 1)
-    if dialogue then
-        dialogue_box:draw(dialogue)
-    end
+
+    dialogue_box:draw()
+
 end
 
 return HUD

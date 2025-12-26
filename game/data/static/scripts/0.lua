@@ -86,30 +86,71 @@ return {
         ["type"] = "narration"
     }, {
         ["id"] = 19,
-        ["text"] = "Hello old friend. Your heart is heavy.",
+        ["text"] = "Hello old friend. I can sense that your heart is heavy.",
         ["type"] = "dialogue",
         ["speaker"] = "CASSANDRA"
     }, {
         ["id"] = 20,
-        ["text"] = "",
+        ["text"] = "Jesus died for our sins.",
         ["type"] = "choices",
         ["speaker"] = "CASSANDRA",
         ["choices"] = {{
+            ["choice_id"] = 1,
             ["text"] = "Who are you?",
+            ["next_node"] = 21
+        }, {
+            ["choice_id"] = 2,
+            ["text"] = "Where am I?",
+            ["next_node"] = 18
+        }, {
+            ["choice_id"] = 3,
+            ["text"] = "Why am I here?",
             ["next_node"] = 18
         }}
+        -- ["revisit_node"] = 19
     }, {
         ["id"] = 21,
-        ["args"] = {"CASSANDRA", 1},
-        ["type"] = "command",
-        ["func"] = "update_name_index"
+        ["text"] = "Call me She Who Remembers.",
+        ["type"] = "dialogue",
+        ["speaker"] = "CASSANDRA"
     }, {
         ["id"] = 22,
+        ["args"] = {"CASSANDRA", 1},
+        ["type"] = "command",
+        ["func"] = "update_name_index",
+        ["next_node"] = 20,
+        ["excluded_choices"] = {1}
+    }, {
+        ["id"] = 23,
+        ["text"] = "You're in a dream.",
+        ["type"] = "dialogue",
+        ["speaker"] = "CASSANDRA",
+        ["choices"] = {{
+            ["choice_id"] = 1,
+            ["text"] = "But I just woke up from a dream.",
+            ["next_node"] = 24
+        }, {
+            ["choice_id"] = 2,
+            ["text"] = "I'm not supposed to know I'm in a dream if I'm in a dream, am I?",
+            ["next_node"] = 24
+        }}
+    }, {
+        ["id"] = 24,
+        ["text"] = "Does it even matter how many layer of dreams we're in? How many doors have you entered? I think it's rather a matter of topology than that of the doors themselves.",
+        ["type"] = "dialogue",
+        ["speaker"] = "CASSANDRA"
+    }, {
+        ["id"] = 25,
         ["text"] = "I'm in here.",
         ["type"] = "dialogue",
         ["speaker"] = "CASSANDRA"
     }, {
-        ["id"] = 23,
+        ["id"] = 26,
+        ["text"] = "I'm in here.",
+        ["type"] = "dialogue",
+        ["speaker"] = "CASSANDRA"
+    }, {
+        ["id"] = 24,
         ["text"] = "Goodbye!",
         ["type"] = "dialogue",
         ["speaker"] = "CASSANDRA"
